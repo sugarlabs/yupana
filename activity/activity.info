@@ -1,0 +1,8 @@
+[Activity]
+name = Yupana
+activity_version = 1
+license = GPLv3
+bundle_id = org.sugarlabs.YupanaActivity
+exec = sugar-activity YupanaActivity.YupanaActivity
+icon = activity-yupana
+show_launcher = yes
