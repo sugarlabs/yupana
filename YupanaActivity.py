@@ -105,7 +105,7 @@ class YupanaActivity(activity.Activity):
             games_toolbar = gtk.Toolbar()
             toolbox = activity.ActivityToolbox(self)
             self.set_toolbox(toolbox)
-            toolbox.add_toolbar(_('Game'), games_toolbar)
+            toolbox.add_toolbar(_('Yupana'), games_toolbar)
             toolbox.show()
             toolbox.set_current_toolbar(1)
             self.toolbar = games_toolbar

@@ -60,10 +60,13 @@ class Yupana():
         self._dot_size = int(DOT_SIZE * self._scale)
         self._space = int(self._dot_size / 5.)
         self.we_are_sharing = False
-        self.playing_with_robot = False
+        self._sum = 0
 
         # Generate the sprites we'll need...
         self._sprites = Sprites(self._canvas)
+        Sprite(self._sprites, 0, 0, self._box(self._width, self._height,
+                                              color=colors[1]))
+
         self._dots = []
         for p in range(SIX):
             y = self._height - self._space
@@ -71,7 +74,7 @@ class Yupana():
 
             x = int(p * self._width / 6) + self._space
             y -= self._dot_size
-            for d in range(3): # bottom of fives row
+            for d in range(3):  # bottom of fives row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -79,7 +82,7 @@ class Yupana():
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size / 2.) + self._space
             y -= self._dot_size + self._space
-            for d in range(2): # top of fives row
+            for d in range(2):  # top of fives row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -91,7 +94,7 @@ class Yupana():
 
             x = int((p * self._width / 6.) + self._dot_size / 2.) + self._space
             y -= self._dot_size
-            for d in range(2): # bottom of threes row
+            for d in range(2):  # bottom of threes row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -99,7 +102,7 @@ class Yupana():
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size) + self._space
             y -= self._dot_size + self._space
-            for d in range(1): # top of threes row
+            for d in range(1):  # top of threes row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -111,7 +114,7 @@ class Yupana():
 
             x = int((p * self._width / 6.) + self._dot_size / 2.) + self._space
             y -= self._dot_size
-            for d in range(2): # twos row
+            for d in range(2):  # twos row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -123,7 +126,7 @@ class Yupana():
 
             x = int((p * self._width / 6.) + self._dot_size) + self._space
             y -= self._dot_size
-            for d in range(1): # ones row
+            for d in range(1):  # ones row
                 self._dots.append(
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
@@ -138,7 +141,8 @@ class Yupana():
             Sprite(self._sprites, x - 1, y,
                    self._line(vertical=True))
 
-        self._number_box =  Sprite(self._sprites, 0, 0, self._box())
+        self._number_box = Sprite(self._sprites, 0, 0, self._box(
+                self._width, 3 * self._dot_size, color=colors[1]))
         self._number_box.set_label_attributes(72)
 
         # and initialize a few variables we'll need.
@@ -171,6 +175,10 @@ class Yupana():
             self._dots[i].type = dot
             self._dots[i].set_shape(self._new_dot(
                     self._colors[self._dots[i].type]))
+            e = 5 - i / (TEN + 1)
+            if self._dots[i].type == 1:
+                self._sum += 10 ** e
+        self._set_label(str(self._sum))
 
     def save_game(self):
         ''' Return dot list and orientation for saving to Journal or
@@ -189,7 +197,7 @@ class Yupana():
         win.grab_focus()
         x, y = map(int, event.get_coords())
 
-        spr = self._sprites.find_sprite((x, y), inverse=True)
+        spr = self._sprites.find_sprite((x, y))
         if spr == None:
             return
 
@@ -203,12 +211,12 @@ class Yupana():
                 self._parent.send_dot_click(self._dots.index(spr),
                                             spr.type)
 
-        i = 5 - self._dots.index(spr) / (TEN + 1) 
-        if spr.type == 1:
-            self._sum += 10 ** i
-        else:
-            self._sum -= 10 ** i
-        self._set_label(self._sum)
+            e = 5 - self._dots.index(spr) / (TEN + 1)
+            if spr.type == 1:
+                self._sum += 10 ** e
+            else:
+                self._sum -= 10 ** e
+            self._set_label(str(self._sum))
         return True
 
     def remote_button_press(self, dot, color):
@@ -286,14 +294,14 @@ class Yupana():
                 self._rect(self._width, 3, 0, 0) + \
                 self._footer())
 
-    def _box(self):
-        ''' Generate a box to store a number '''
-        self._svg_width = self._width
-        self._svg_height = self._dot_size * 3
+    def _box(self, w, h, color='white'):
+        ''' Generate a box '''
+        self._svg_width = w
+        self._svg_height = h
         return svg_str_to_pixbuf(
                 self._header() + \
                 self._rect(self._svg_width, self._svg_height, 0, 0,
-                           color='white') + \
+                           color=color) + \
                 self._footer())
 
     def _header(self):
@@ -313,8 +321,10 @@ class Yupana():
         svg_string += '          y="%f"\n' % (y)
         if color == 'black':
             svg_string += 'style="fill:#000000;stroke:#000000;"/>\n'
-        else:
+        elif color == 'white':
             svg_string += 'style="fill:#ffffff;stroke:#ffffff;"/>\n'
+        else:
+            svg_string += 'style="fill:%s;stroke:%s;"/>\n' % (color, color)
         return svg_string
 
     def _circle(self, r, cx, cy):
