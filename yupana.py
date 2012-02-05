@@ -254,10 +254,20 @@ class Yupana():
 
     def _new_dot(self, color):
         ''' generate a dot of a color color '''
+        def darken(color):
+            ''' return a darker color than color '''
+            gdk_fill_color = gtk.gdk.color_parse(self._fill)
+            gdk_fill_dark_color = gtk.gdk.Color(
+                int(gdk_fill_color.red * 0.5),
+                int(gdk_fill_color.green * 0.5),
+                int(gdk_fill_color.blue * 0.5))
+            return str(gdk_fill_dark_color)
+
         self._dot_cache = {}
         if not color in self._dot_cache:
             self._stroke = color
             self._fill = color
+            self._fill_dark = darken(color)
             self._svg_width = self._dot_size
             self._svg_height = self._dot_size
             if color in ['#FFFFFF', '#000000']:
@@ -341,7 +351,7 @@ class Yupana():
             str(cx) + '" cy="' + str(cy) + '" />\n'
 
     def _gradient(self, r, cx, cy):
-        return '<circle style="fill:url(#linearGradient3761);' + \
+        return '<circle style="fill:url(#radialGradient3761);' + \
             'fill-opacity:1;stroke:none;" r="' + str(r - 0.5) + '" cx="' + \
             str(cx) + '" cy="' + str(cy) + '" />\n'
 
@@ -358,16 +368,17 @@ class Yupana():
          style="stop-color:%s;stop-opacity:1"\
          offset="1" />\
     </linearGradient>\
-    <linearGradient\
-       x1="0"\
-       y1="0"\
-       x2="%f"\
-       y2="%f"\
-       id="linearGradient3761"\
+    <radialGradient\
+       cx="0"\
+       cy="0"\
+       r="%f"\
+       fx="%f"\
+       fy="%f"\
+       id="radialGradient3761"\
        xlink:href="#linearGradient3755"\
        gradientUnits="userSpaceOnUse" />\
   </defs>\
-' % (self._fill, '#000000', r, r)
+' % (self._fill, self._fill_dark, r, r / 3, r / 3)
 
     def _footer(self):
         return '</svg>\n'
