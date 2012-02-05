@@ -260,11 +260,19 @@ class Yupana():
             self._fill = color
             self._svg_width = self._dot_size
             self._svg_height = self._dot_size
-            pixbuf = svg_str_to_pixbuf(
-                self._header() + \
-                self._circle(self._dot_size / 2., self._dot_size / 2.,
-                             self._dot_size / 2.) + \
-                self._footer())
+            if color in ['#FFFFFF', '#000000']:
+                pixbuf = svg_str_to_pixbuf(
+                    self._header() + \
+                    self._circle(self._dot_size / 2., self._dot_size / 2.,
+                                 self._dot_size / 2.) + \
+                    self._footer())
+            else:
+                pixbuf = svg_str_to_pixbuf(
+                    self._header() + \
+                    self._def(self._dot_size) + \
+                    self._gradient(self._dot_size / 2., self._dot_size / 2.,
+                                 self._dot_size / 2.) + \
+                    self._footer())
 
             surface = cairo.ImageSurface(cairo.FORMAT_ARGB32,
                                          self._svg_width, self._svg_height)
@@ -331,6 +339,35 @@ class Yupana():
         return '<circle style="fill:' + str(self._fill) + ';stroke:' + \
             str(self._stroke) + ';" r="' + str(r - 0.5) + '" cx="' + \
             str(cx) + '" cy="' + str(cy) + '" />\n'
+
+    def _gradient(self, r, cx, cy):
+        return '<circle style="fill:url(#linearGradient3761);' + \
+            'fill-opacity:1;stroke:none;" r="' + str(r - 0.5) + '" cx="' + \
+            str(cx) + '" cy="' + str(cy) + '" />\n'
+
+    def _def(self, r):
+        return '  <defs>\
+    <linearGradient\
+       id="linearGradient3755">\
+      <stop\
+         id="stop3757"\
+         style="stop-color:%s;stop-opacity:1"\
+         offset="0" />\
+      <stop\
+         id="stop3759"\
+         style="stop-color:%s;stop-opacity:1"\
+         offset="1" />\
+    </linearGradient>\
+    <linearGradient\
+       x1="0"\
+       y1="0"\
+       x2="%f"\
+       y2="%f"\
+       id="linearGradient3761"\
+       xlink:href="#linearGradient3755"\
+       gradientUnits="userSpaceOnUse" />\
+  </defs>\
+' % (self._fill, '#000000', r, r)
 
     def _footer(self):
         return '</svg>\n'
