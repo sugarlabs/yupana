@@ -1,3 +1,9 @@
+3
+
+ENHANCEMENT:
+* Added support for different interpretations of how a Yupana works: base 10,
+  base 20, and based on prime factors.
+
 2
 
 ENHANCEMENTS:
