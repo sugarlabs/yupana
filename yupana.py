@@ -62,6 +62,7 @@ class Yupana():
         self.we_are_sharing = False
         self._sum = 0
         self._mode = 'ten'
+        self.custom = [1, 1, 1, 1, 10]
 
         # Generate the sprites we'll need...
         self._sprites = Sprites(self._canvas)
@@ -80,6 +81,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size / 2.) + self._space
             y -= self._dot_size + self._space
@@ -88,6 +90,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -100,6 +103,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size) + self._space
             y -= self._dot_size + self._space
@@ -108,6 +112,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -120,6 +125,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -132,6 +138,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
+                self._dots[-1].set_label_color('white')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -168,6 +175,51 @@ class Yupana():
 
         if mode is not None:
             self._mode = mode
+            o = (SIX - 1) * (TEN + 1)  # only label units 
+            if mode == 'ten':
+                for i in range(TEN + 1):
+                    self._dots[o + i].set_label('1')
+                self._dots[o - 1].set_label('10')
+            elif mode == 'twenty':
+                for i in range(TEN + 1):
+                    if i in [7, 10]:
+                        self._dots[o + i].set_label('1')
+                    else:
+                        self._dots[o + i].set_label('2')
+                self._dots[o - 1].set_label('20')
+            elif mode == 'factor':
+                for i in range(TEN + 1):
+                    if i in [10]:
+                        self._dots[o + i].set_label('1')
+                    elif i in [8, 9]:
+                        self._dots[o + i].set_label('2')
+                    elif i in [5, 6, 7]:
+                        self._dots[o + i].set_label('3')
+                    else:
+                        self._dots[o + i].set_label('5')
+                self._dots[o - 1].set_label('10')
+            elif mode == 'fibanocci':
+                for i in range(TEN + 1):
+                    if i in [10]:
+                        self._dots[o + i].set_label('1')
+                    elif i in [8, 9]:
+                        self._dots[o + i].set_label('2')
+                    elif i in [5, 6, 7]:
+                        self._dots[o + i].set_label('5')
+                    else:
+                        self._dots[o + i].set_label('20')
+                self._dots[o - 1].set_label('60')
+            else:  # custom
+                for i in range(TEN + 1):
+                    if i in [10]:
+                        self._dots[o + i].set_label(str(self.custom[0]))
+                    elif i in [8, 9]:
+                        self._dots[o + i].set_label(str(self.custom[1]))
+                    elif i in [5, 6, 7]:
+                        self._dots[o + i].set_label(str(self.custom[2]))
+                    else:
+                        self._dots[o + i].set_label(str(self.custom[3]))
+                self._dots[o - 1].set_label(str(self.custom[4]))
 
         if self.we_are_sharing:
             _logger.debug('sending a new yupana')
@@ -232,7 +284,7 @@ class Yupana():
                 return 20 ** e
             else:
                 return (20 ** e) * 2
-        else:  # factor mode
+        elif self._mode == 'factor':
             if m in [10]:
                 return 10 ** e
             elif m in [8, 9]:
@@ -241,6 +293,25 @@ class Yupana():
                 return (10 ** e) * 3
             else:
                 return (10 ** e) * 5
+        elif self._mode == 'fibanocci':
+            if m in [10]:
+                return 60 ** e
+            elif m in [8, 9]:
+                return (60 ** e) * 2
+            elif m in [5, 6, 7]:
+                return (60 ** e) * 5
+            else:
+                return (60 ** e) * 20
+        else:  # custom
+            if m in [10]:
+                return (self.custom[4] ** e) * self.custom[0]
+            elif m in [8, 9]:
+                return (self.custom[4] ** e) * self.custom[1]
+            elif m in [5, 6, 7]:
+                return (self.custom[4] ** e) * self.custom[2]
+            else:
+                return (self.custom[4] ** e) * self.custom[3]
+
 
     def remote_button_press(self, dot, color):
         ''' Receive a button press from a sharer '''

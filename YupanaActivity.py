@@ -26,7 +26,7 @@ if _have_toolbox:
     from sugar.graphics.toolbarbox import ToolbarButton
 
 from toolbar_utils import button_factory, label_factory, separator_factory, \
-    radio_factory
+    radio_factory, entry_factory
 from utils import json_load, json_dump
 
 import telepathy
@@ -82,7 +82,11 @@ class YupanaActivity(activity.Activity):
         if 'dotlist' in self.metadata:
             self._restore()
         else:
-            self._yupana.new_yupana()
+            self._yupana.new_yupana(mode='ten')
+
+        self._make_custom_toolbar()
+        if self._reload_custom:
+            self._custom_cb()
 
     def _setup_toolbars(self, have_toolbox):
         """ Setup the toolbars. """
@@ -90,6 +94,7 @@ class YupanaActivity(activity.Activity):
         self.max_participants = 4
 
         yupana_toolbar = gtk.Toolbar()
+        self.custom_toolbar = gtk.Toolbar()
         if have_toolbox:
             toolbox = ToolbarBox()
 
@@ -106,6 +111,13 @@ class YupanaActivity(activity.Activity):
             toolbox.toolbar.insert(yupana_toolbar_button, -1)
             yupana_toolbar_button.show()
 
+            custom_toolbar_button = ToolbarButton(
+                label=_("Custom"), page=self.custom_toolbar,
+                icon_name='view-source')
+            self.custom_toolbar.show()
+            toolbox.toolbar.insert(custom_toolbar_button, -1)
+            custom_toolbar_button.show()
+
             self.set_toolbar_box(toolbox)
             toolbox.show()
             self.toolbar = toolbox.toolbar
@@ -115,6 +127,7 @@ class YupanaActivity(activity.Activity):
             toolbox = activity.ActivityToolbox(self)
             self.set_toolbox(toolbox)
             toolbox.add_toolbar(_('Yupana'), yupana_toolbar)
+            toolbox.add_toolbar(_('Custom'), self.custom_toolbar)
             toolbox.show()
             toolbox.set_current_toolbar(1)
             self.toolbar = yupana_toolbar
@@ -137,6 +150,14 @@ class YupanaActivity(activity.Activity):
             'factor', yupana_toolbar, self._factor_cb,
             tooltip=_('prime-factor mode'),
             group=self.ten_button)
+        self.fibanocci_button = radio_factory(
+            'fibanocci', yupana_toolbar, self._fibanocci_cb,
+            tooltip=_('fibanocci mode'),
+            group=self.ten_button)
+        self.custom_button = radio_factory(
+            'view-source', yupana_toolbar, self._custom_cb,
+            tooltip=_('custom mode'),
+            group=self.ten_button)
 
         separator_factory(self.toolbar, False, False)
         self.status = label_factory(self.toolbar, '')
@@ -151,6 +172,30 @@ class YupanaActivity(activity.Activity):
             toolbox.toolbar.insert(stop_button, -1)
             stop_button.show()
 
+    def _make_custom_toolbar(self):
+        self.ones = entry_factory(str(self._yupana.custom[0]),
+                                  self.custom_toolbar,
+                                  tooltip=_('one row'))
+        self.twos = entry_factory(str(self._yupana.custom[1]),
+                                  self.custom_toolbar,
+                                  tooltip=_('two row'))
+        self.threes = entry_factory(str(self._yupana.custom[2]),
+                                    self.custom_toolbar,
+                                    tooltip=_('three row'))
+        self.fives = entry_factory(str(self._yupana.custom[3]),
+                                   self.custom_toolbar,
+                                   tooltip=_('five row'))
+
+        separator_factory(self.custom_toolbar, False, True)
+        self.base = entry_factory(str(self._yupana.custom[4]),
+                                  self.custom_toolbar,
+                                  tooltip=_('base'))
+
+        separator_factory(self.custom_toolbar, False, True)
+        button_factory('view-refresh', self.custom_toolbar, self._custom_cb,
+                       tooltip=_('Reload custom values.'))
+        
+
     def _new_yupana_cb(self, button=None):
         ''' Start a new yupana. '''
         self._yupana.new_yupana()
@@ -158,22 +203,40 @@ class YupanaActivity(activity.Activity):
     def _ten_cb(self, button=None):
         self._yupana.new_yupana(mode='ten')
         self.status.set_label(_('decimal mode'))
-        return
 
     def _twenty_cb(self, button=None):
         self._yupana.new_yupana(mode='twenty')
         self.status.set_label(_('base-twenty mode'))
-        return
 
     def _factor_cb(self, button=None):
         self._yupana.new_yupana(mode='factor')
         self.status.set_label(_('prime-factor mode'))
-        return
+
+    def _fibanocci_cb(self, button=None):
+        self._yupana.new_yupana(mode='fibanocci')
+        self.status.set_label(_('fibanocci mode'))
+
+    def _custom_cb(self, button=None):
+        if hasattr(self, 'ones'):
+            self._yupana.custom[0] = self.ones.get_text()
+            self._yupana.custom[1] = self.twos.get_text()
+            self._yupana.custom[2] = self.threes.get_text()
+            self._yupana.custom[3] = self.fives.get_text()
+            self._yupana.custom[4] = self.base.get_text()
+            self._reload_custom = False
+        else:
+            self._reload_custom = True
+        self._yupana.new_yupana(mode='custom')
+        self.status.set_label(_('custom mode'))
 
     def write_file(self, file_path):
         """ Write the grid status to the Journal """
         [mode, dot_list] = self._yupana.save_yupana()
         self.metadata['mode'] = mode
+        self.metadata['custom'] = ''
+        for i in range(5):
+            self.metadata['custom'] += str(self._yupana.custom[i])
+            self.metadata['custom'] += ' '
         self.metadata['dotlist'] = ''
         for dot in dot_list:
             self.metadata['dotlist'] += str(dot)
@@ -182,13 +245,21 @@ class YupanaActivity(activity.Activity):
 
     def _restore(self):
         """ Restore the yupana state from metadata """
+        if 'custom' in self.metadata:
+            values = self.metadata['custom'].split()
+            for i in range(5):
+                self._yupana.custom[i] = int(values[i])
         if 'mode' in self.metadata:
             if self.metadata['mode'] == 'ten':
-                self._ten_cb()
+                self.ten_button.set_active(True)
             elif self.metadata['mode'] == 'twenty':
-                self._twenty_cb()
+                self.twenty_button.set_active(True)
+            elif self.metadata['mode'] == 'factor':
+                self.factor_button.set_active(True)
+            elif self.metadata['mode'] == 'fibanocci':
+                self.fibanocci_button.set_active(True)
             else:
-                self._factor_cb()
+                self.custom_button.set_active(True)
         if 'dotlist' in self.metadata:
             dot_list = []
             dots = self.metadata['dotlist'].split()
