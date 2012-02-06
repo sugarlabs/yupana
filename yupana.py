@@ -61,6 +61,7 @@ class Yupana():
         self._space = int(self._dot_size / 5.)
         self.we_are_sharing = False
         self._sum = 0
+        self._mode = 'ten'
 
         # Generate the sprites we'll need...
         self._sprites = Sprites(self._canvas)
@@ -149,7 +150,7 @@ class Yupana():
         self._all_clear()
 
     def _all_clear(self):
-        ''' Things to reinitialize when starting up a new game. '''
+        ''' Things to reinitialize when starting up a new yupana. '''
         self._sum = 0
         for dot in self._dots:
             if dot.type > 0:
@@ -161,37 +162,39 @@ class Yupana():
     def _initiating(self):
         return self._activity.initiating
 
-    def new_game(self):
+    def new_yupana(self, mode=None):
         ''' Create a new yupana. '''
         self._all_clear()
 
+        if mode is not None:
+            self._mode = mode
+
         if self.we_are_sharing:
             _logger.debug('sending a new yupana')
-            self._parent.send_new_game()
+            self._parent.send_new_yupana()
 
-    def restore_game(self, dot_list):
+    def restore_yupana(self, dot_list):
         ''' Restore a yumpana from the Journal or share '''
         for i, dot in enumerate(dot_list):
             self._dots[i].type = dot
             self._dots[i].set_shape(self._new_dot(
                     self._colors[self._dots[i].type]))
-            e = 5 - i / (TEN + 1)
             if self._dots[i].type == 1:
-                self._sum += 10 ** e
+                self._sum += self._calc_bead_value(i)
         self._set_label(str(self._sum))
 
-    def save_game(self):
+    def save_yupana(self):
         ''' Return dot list and orientation for saving to Journal or
         sharing '''
         dot_list = []
         for dot in self._dots:
             dot_list.append(dot.type)
-        return dot_list
+        return [self._mode, dot_list]
 
     def _set_label(self, string):
         ''' Set the label in the toolbar or the window frame. '''
         self._number_box.set_label(string)
-        self._activity.status.set_label(string)
+        # self._activity.status.set_label(string)
 
     def _button_press_cb(self, win, event):
         win.grab_focus()
@@ -211,13 +214,33 @@ class Yupana():
                 self._parent.send_dot_click(self._dots.index(spr),
                                             spr.type)
 
-            e = 5 - self._dots.index(spr) / (TEN + 1)
             if spr.type == 1:
-                self._sum += 10 ** e
+                self._sum += self._calc_bead_value(self._dots.index(spr))
             else:
-                self._sum -= 10 ** e
+                self._sum -= self._calc_bead_value(self._dots.index(spr))
             self._set_label(str(self._sum))
         return True
+
+    def _calc_bead_value(self, i):
+        ''' Calculate a bead value based on the index and the mode '''
+        e = 5 - i / (TEN + 1)
+        m = i % 11
+        if self._mode == 'ten':
+            return 10 ** e
+        elif self._mode == 'twenty':
+            if m in [7, 10]:
+                return 20 ** e
+            else:
+                return (20 ** e) * 2
+        else:  # factor mode
+            if m in [10]:
+                return 10 ** e
+            elif m in [8, 9]:
+                return (10 ** e) * 2
+            elif m in [5, 6, 7]:
+                return (10 ** e) * 3
+            else:
+                return (10 ** e) * 5
 
     def remote_button_press(self, dot, color):
         ''' Receive a button press from a sharer '''

@@ -23,8 +23,10 @@ except ImportError:
 if _have_toolbox:
     from sugar.activity.widgets import ActivityToolbarButton
     from sugar.activity.widgets import StopButton
+    from sugar.graphics.toolbarbox import ToolbarButton
 
-from toolbar_utils import button_factory, label_factory, separator_factory
+from toolbar_utils import button_factory, label_factory, separator_factory, \
+    radio_factory
 from utils import json_load, json_dump
 
 import telepathy
@@ -74,19 +76,20 @@ class YupanaActivity(activity.Activity):
         canvas.show()
         self.show_all()
 
-        self._game = Yupana(canvas, parent=self, colors=self.colors)
+        self._yupana = Yupana(canvas, parent=self, colors=self.colors)
         self._setup_presence_service()
 
         if 'dotlist' in self.metadata:
             self._restore()
         else:
-            self._game.new_game()
+            self._yupana.new_yupana()
 
     def _setup_toolbars(self, have_toolbox):
         """ Setup the toolbars. """
 
         self.max_participants = 4
 
+        yupana_toolbar = gtk.Toolbar()
         if have_toolbox:
             toolbox = ToolbarBox()
 
@@ -96,25 +99,48 @@ class YupanaActivity(activity.Activity):
             toolbox.toolbar.insert(activity_button, 0)
             activity_button.show()
 
+            yupana_toolbar_button = ToolbarButton(
+                label=_("Mode"), page=yupana_toolbar,
+                icon_name='preferences-system')
+            yupana_toolbar.show()
+            toolbox.toolbar.insert(yupana_toolbar_button, -1)
+            yupana_toolbar_button.show()
+
             self.set_toolbar_box(toolbox)
             toolbox.show()
             self.toolbar = toolbox.toolbar
 
         else:
             # Use pre-0.86 toolbar design
-            games_toolbar = gtk.Toolbar()
             toolbox = activity.ActivityToolbox(self)
             self.set_toolbox(toolbox)
-            toolbox.add_toolbar(_('Yupana'), games_toolbar)
+            toolbox.add_toolbar(_('Yupana'), yupana_toolbar)
             toolbox.show()
             toolbox.set_current_toolbar(1)
-            self.toolbar = games_toolbar
+            self.toolbar = yupana_toolbar
 
-        self._new_game_button = button_factory(
-            'edit-delete', self.toolbar, self._new_game_cb,
+        self._new_yupana_button = button_factory(
+            'edit-delete', self.toolbar, self._new_yupana_cb,
             tooltip=_('Clear the yupana.'))
 
+        if not _have_toolbox:
+            separator_factory(yupana_toolbar, False, True)
+
+        self.ten_button = radio_factory(
+            'ten', yupana_toolbar, self._ten_cb, tooltip=_('decimal mode'),
+            group=None)
+        self.twenty_button = radio_factory(
+            'twenty', yupana_toolbar, self._twenty_cb,
+            tooltip=_('base-twenty mode'),
+            group=self.ten_button)
+        self.factor_button = radio_factory(
+            'factor', yupana_toolbar, self._factor_cb,
+            tooltip=_('prime-factor mode'),
+            group=self.ten_button)
+
+        separator_factory(self.toolbar, False, False)
         self.status = label_factory(self.toolbar, '')
+        self.status.set_label(_('decimal mode'))
 
         if _have_toolbox:
             separator_factory(toolbox.toolbar, True, False)
@@ -125,13 +151,29 @@ class YupanaActivity(activity.Activity):
             toolbox.toolbar.insert(stop_button, -1)
             stop_button.show()
 
-    def _new_game_cb(self, button=None):
-        ''' Start a new game. '''
-        self._game.new_game()
+    def _new_yupana_cb(self, button=None):
+        ''' Start a new yupana. '''
+        self._yupana.new_yupana()
+
+    def _ten_cb(self, button=None):
+        self._yupana.new_yupana(mode='ten')
+        self.status.set_label(_('decimal mode'))
+        return
+
+    def _twenty_cb(self, button=None):
+        self._yupana.new_yupana(mode='twenty')
+        self.status.set_label(_('base-twenty mode'))
+        return
+
+    def _factor_cb(self, button=None):
+        self._yupana.new_yupana(mode='factor')
+        self.status.set_label(_('prime-factor mode'))
+        return
 
     def write_file(self, file_path):
         """ Write the grid status to the Journal """
-        dot_list = self._game.save_game()
+        [mode, dot_list] = self._yupana.save_yupana()
+        self.metadata['mode'] = mode
         self.metadata['dotlist'] = ''
         for dot in dot_list:
             self.metadata['dotlist'] += str(dot)
@@ -139,14 +181,24 @@ class YupanaActivity(activity.Activity):
                 self.metadata['dotlist'] += ' '
 
     def _restore(self):
-        """ Restore the game state from metadata """
-        dot_list = []
-        dots = self.metadata['dotlist'].split()
-        for dot in dots:
-            dot_list.append(int(dot))
-        self._game.restore_game(dot_list)
+        """ Restore the yupana state from metadata """
+        if 'mode' in self.metadata:
+            if self.metadata['mode'] == 'ten':
+                self._ten_cb()
+            elif self.metadata['mode'] == 'twenty':
+                self._twenty_cb()
+            else:
+                self._factor_cb()
+        if 'dotlist' in self.metadata:
+            dot_list = []
+            dots = self.metadata['dotlist'].split()
+            for dot in dots:
+                dot_list.append(int(dot))
+            self._yupana.restore_yupana(dot_list)
 
     # Collaboration-related methods
+
+    # FIXME: share mode
 
     def _setup_presence_service(self):
         """ Setup the Presence Service. """
@@ -193,7 +245,7 @@ class YupanaActivity(activity.Activity):
             self.tubes_chan[telepathy.CHANNEL_TYPE_TUBES].ListTubes(
                 reply_handler=self._list_tubes_reply_cb,
                 error_handler=self._list_tubes_error_cb)
-        self._game.set_sharing(True)
+        self._yupana.set_sharing(True)
 
     def _list_tubes_reply_cb(self, tubes):
         """ Reply to a list request. """
@@ -224,7 +276,7 @@ params=%r state=%d' % (id, initiator, type, service, params, state))
     def _setup_dispatch_table(self):
         ''' Associate tokens with commands. '''
         self._processing_methods = {
-            'n': [self._receive_new_game, 'get a new game grid'],
+            'n': [self._receive_new_yupana, 'get a new yupana grid'],
             'p': [self._receive_dot_click, 'get a dot click'],
             }
 
@@ -239,14 +291,14 @@ params=%r state=%d' % (id, initiator, type, service, params, state))
             return
         self._processing_methods[command][0](payload)
 
-    def send_new_game(self):
+    def send_new_yupana(self):
         ''' Send a new orientation, grid to all players '''
-        self.send_event('n|%s' % (json_dump(self._game.save_game())))
+        self.send_event('n|%s' % (json_dump(self._yupana.save_yupana())))
 
-    def _receive_new_game(self, payload):
-        ''' Sharer can start a new game. '''
+    def _receive_new_yupana(self, payload):
+        ''' Sharer can start a new yupana. '''
         dot_list = json_load(payload)
-        self._game.restore_game(dot_list)
+        self._yupana.restore_yupana(dot_list)
 
     def send_dot_click(self, dot, color):
         ''' Send a dot click to all the players '''
@@ -255,7 +307,7 @@ params=%r state=%d' % (id, initiator, type, service, params, state))
     def _receive_dot_click(self, payload):
         ''' When a dot is clicked, everyone should change its color. '''
         (dot, color) = json_load(payload)
-        self._game.remote_button_press(dot, color)
+        self._yupana.remote_button_press(dot, color)
 
     def send_event(self, entry):
         """ Send event through the tube. """
