@@ -111,7 +111,7 @@ class YupanaActivity(activity.Activity):
             self.toolbar = games_toolbar
 
         self._new_game_button = button_factory(
-            'new-yupana', self.toolbar, self._new_game_cb,
+            'edit-delete', self.toolbar, self._new_game_cb,
             tooltip=_('Clear the yupana.'))
 
         self.status = label_factory(self.toolbar, '')
