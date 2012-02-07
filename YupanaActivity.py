@@ -195,7 +195,6 @@ class YupanaActivity(activity.Activity):
         separator_factory(self.custom_toolbar, False, True)
         button_factory('view-refresh', self.custom_toolbar, self._custom_cb,
                        tooltip=_('Reload custom values.'))
-        
 
     def _new_yupana_cb(self, button=None):
         ''' Start a new yupana. '''
@@ -218,12 +217,12 @@ class YupanaActivity(activity.Activity):
         self.status.set_label(_('fibanocci mode'))
 
     def _custom_cb(self, button=None):
-        if hasattr(self, 'ones'):
-            self._yupana.custom[0] = self._ones.get_text()
-            self._yupana.custom[1] = self._twos.get_text()
-            self._yupana.custom[2] = self._threes.get_text()
-            self._yupana.custom[3] = self._fives.get_text()
-            self._yupana.custom[4] = self._base.get_text()
+        if hasattr(self, '_ones'):
+            self._yupana.custom[0] = int(self._ones.get_text())
+            self._yupana.custom[1] = int(self._twos.get_text())
+            self._yupana.custom[2] = int(self._threes.get_text())
+            self._yupana.custom[3] = int(self._fives.get_text())
+            self._yupana.custom[4] = int(self._base.get_text())
             self._reload_custom = False
         else:
             self._reload_custom = True
