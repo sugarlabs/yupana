@@ -60,6 +60,7 @@ class YupanaActivity(activity.Activity):
             _logger.error(str(e))
 
         self.nick = profile.get_nick_name()
+        self._reload_custom = False
         if profile.get_color() is not None:
             self.colors = profile.get_color().to_string().split(',')
         else:
@@ -173,23 +174,23 @@ class YupanaActivity(activity.Activity):
             stop_button.show()
 
     def _make_custom_toolbar(self):
-        self.ones = entry_factory(str(self._yupana.custom[0]),
-                                  self.custom_toolbar,
-                                  tooltip=_('one row'))
-        self.twos = entry_factory(str(self._yupana.custom[1]),
-                                  self.custom_toolbar,
-                                  tooltip=_('two row'))
-        self.threes = entry_factory(str(self._yupana.custom[2]),
-                                    self.custom_toolbar,
-                                    tooltip=_('three row'))
-        self.fives = entry_factory(str(self._yupana.custom[3]),
+        self._ones = entry_factory(str(self._yupana.custom[0]),
                                    self.custom_toolbar,
-                                   tooltip=_('five row'))
+                                   tooltip=_('one row'))
+        self._twos = entry_factory(str(self._yupana.custom[1]),
+                                   self.custom_toolbar,
+                                   tooltip=_('two row'))
+        self._threes = entry_factory(str(self._yupana.custom[2]),
+                                     self.custom_toolbar,
+                                     tooltip=_('three row'))
+        self._fives = entry_factory(str(self._yupana.custom[3]),
+                                    self.custom_toolbar,
+                                    tooltip=_('five row'))
 
         separator_factory(self.custom_toolbar, False, True)
-        self.base = entry_factory(str(self._yupana.custom[4]),
-                                  self.custom_toolbar,
-                                  tooltip=_('base'))
+        self._base = entry_factory(str(self._yupana.custom[4]),
+                                   self.custom_toolbar,
+                                   tooltip=_('base'))
 
         separator_factory(self.custom_toolbar, False, True)
         button_factory('view-refresh', self.custom_toolbar, self._custom_cb,
@@ -218,11 +219,11 @@ class YupanaActivity(activity.Activity):
 
     def _custom_cb(self, button=None):
         if hasattr(self, 'ones'):
-            self._yupana.custom[0] = self.ones.get_text()
-            self._yupana.custom[1] = self.twos.get_text()
-            self._yupana.custom[2] = self.threes.get_text()
-            self._yupana.custom[3] = self.fives.get_text()
-            self._yupana.custom[4] = self.base.get_text()
+            self._yupana.custom[0] = self._ones.get_text()
+            self._yupana.custom[1] = self._twos.get_text()
+            self._yupana.custom[2] = self._threes.get_text()
+            self._yupana.custom[3] = self._fives.get_text()
+            self._yupana.custom[4] = self._base.get_text()
             self._reload_custom = False
         else:
             self._reload_custom = True
