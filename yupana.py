@@ -175,7 +175,7 @@ class Yupana():
 
         if mode is not None:
             self._mode = mode
-            o = (SIX - 1) * (TEN + 1)  # only label units 
+            o = (SIX - 1) * (TEN + 1)  # only label units
             if mode == 'ten':
                 for i in range(TEN + 1):
                     self._dots[o + i].set_label('1')
@@ -311,7 +311,6 @@ class Yupana():
                 return (self.custom[4] ** e) * self.custom[2]
             else:
                 return (self.custom[4] ** e) * self.custom[3]
-
 
     def remote_button_press(self, dot, color):
         ''' Receive a button press from a sharer '''
@@ -489,7 +488,7 @@ class Yupana():
      d="m 32.382709,4.7758124 c -0.123616,1.0811396 1.753928,2.8458658 2.728329,2.9439992 0.974405,0.098134 6.718874,0.7298319 9.159392,-0.1962668 0.820281,-0.3112699 0.968884,-0.9547989 0.974407,-1.4719993 0.02053,-1.9240971 0.03247,-4.7715376 -3.507853,-5.49546551 C 39.556079,0.11012647 37.217081,1.4131653 35.500801,2.2243463 34.054814,2.9077752 32.496703,3.7788369 32.382709,4.7758124 z"\
      style="fill:#b69556;fill-opacity:1;stroke:#b69556;stroke-width:1.31189477px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /></g>' % (
             scale, scale)
-    
+
     def _footer(self):
         return '</svg>\n'
 
