@@ -81,7 +81,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size / 2.) + self._space
             y -= self._dot_size + self._space
@@ -90,7 +90,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -103,7 +103,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
             x = int((p * self._width / 6.) + self._dot_size) + self._space
             y -= self._dot_size + self._space
@@ -112,7 +112,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -125,7 +125,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -138,7 +138,7 @@ class Yupana():
                     Sprite(self._sprites, x, y,
                            self._new_dot(self._colors[0])))
                 self._dots[-1].type = 0  # not set
-                self._dots[-1].set_label_color('white')
+                self._dots[-1].set_label_color('black')
                 x += self._dot_size + self._space
 
             y -= self._dot_size
@@ -373,7 +373,6 @@ class Yupana():
             else:
                 pixbuf = svg_str_to_pixbuf(
                     self._header() + \
-                    self._def(self._dot_size) + \
                     self._gradient(self._dot_size / 2., self._dot_size / 2.,
                                  self._dot_size / 2.) + \
                     self._footer())
@@ -406,7 +405,7 @@ class Yupana():
                 self._rect(self._width, 3, 0, 0) + \
                 self._footer())
 
-    def _box(self, w, h, color='white'):
+    def _box(self, w, h, color='black'):
         ''' Generate a box '''
         self._svg_width = w
         self._svg_height = h
@@ -440,40 +439,57 @@ class Yupana():
         return svg_string
 
     def _circle(self, r, cx, cy):
-        return '<circle style="fill:' + str(self._fill) + ';stroke:' + \
-            str(self._stroke) + ';" r="' + str(r - 0.5) + '" cx="' + \
-            str(cx) + '" cy="' + str(cy) + '" />\n'
+        scale = (DOT_SIZE * self._scale) / 55.
+        return '\
+  <g transform="matrix(%f,0,0,%f,0,0)">\
+  <path\
+     d="m 35.798426,4.2187227 c -2.210658,0.9528967 -4.993612,-0.9110169 -7.221856,0 C 23.805784,6.1692574 20.658687,10.945585 17.543179,15.051507 13.020442,21.012013 7.910957,27.325787 6.7103942,34.711004 6.0558895,38.737163 6.434461,43.510925 8.917073,46.747431 c 3.604523,4.699107 15.24614,7.62307 16.048569,7.62307 0.802429,0 8.366957,0.46766 12.036427,-1.203642 2.841316,-1.294111 5.173945,-3.766846 6.820641,-6.419428 2.543728,-4.097563 3.563068,-9.062928 4.21275,-13.841891 C 49.107723,25.018147 48.401726,15.967648 47.433639,9.0332932 47.09109,6.5796321 43.508442,7.2266282 42.329009,5.7211058 41.256823,4.3524824 42.197481,1.860825 40.813604,0.80840168 40.384481,0.48205899 39.716131,0.42556727 39.208747,0.60779459 37.650593,1.1674066 37.318797,3.5633724 35.798426,4.2187227 z"\
+     style="fill:none;fill-opacity:1;stroke:%s;stroke-width:3.0" />\
+</g>' % (
+            scale, scale, self._colors[1])
 
     def _gradient(self, r, cx, cy):
+        '''
         return '<circle style="fill:url(#radialGradient3761);' + \
             'fill-opacity:1;stroke:none;" r="' + str(r - 0.5) + '" cx="' + \
             str(cx) + '" cy="' + str(cy) + '" />\n'
-
-    def _def(self, r):
-        return '  <defs>\
+        '''
+        scale = (DOT_SIZE * self._scale) / 55.
+        return '\
+  <defs>\
     <linearGradient\
-       id="linearGradient3755">\
+       id="linearGradient3769">\
       <stop\
-         id="stop3757"\
-         style="stop-color:%s;stop-opacity:1"\
+         id="stop3771"\
+         style="stop-color:#ffff00;stop-opacity:1"\
          offset="0" />\
       <stop\
-         id="stop3759"\
-         style="stop-color:%s;stop-opacity:1"\
+         id="stop3773"\
+         style="stop-color:#ffff00;stop-opacity:0"\
          offset="1" />\
     </linearGradient>\
-    <radialGradient\
-       cx="0"\
-       cy="0"\
-       r="%f"\
-       fx="%f"\
-       fy="%f"\
-       id="radialGradient3761"\
-       xlink:href="#linearGradient3755"\
-       gradientUnits="userSpaceOnUse" />\
+    <linearGradient\
+       x1="10.761448"\
+       y1="41.003559"\
+       x2="56.70686"\
+       y2="41.003559"\
+       id="linearGradient2999"\
+       xlink:href="#linearGradient3769"\
+       gradientUnits="userSpaceOnUse"\
+       gradientTransform="matrix(0.93094239,0,0,0.93094239,-3.9217825,-2.4013121)" />\
   </defs>\
-' % (self._fill, self._fill_dark, r, r / 3, r / 3)
-
+  <g transform="matrix(%f,0,0,%f,0,0)">\
+  <path\
+     d="m 35.798426,4.2187227 c -2.210658,0.9528967 -4.993612,-0.9110169 -7.221856,0 C 23.805784,6.1692574 20.658687,10.945585 17.543179,15.051507 13.020442,21.012013 7.910957,27.325787 6.7103942,34.711004 6.0558895,38.737163 6.434461,43.510925 8.917073,46.747431 c 3.604523,4.699107 15.24614,7.62307 16.048569,7.62307 0.802429,0 8.366957,0.46766 12.036427,-1.203642 2.841316,-1.294111 5.173945,-3.766846 6.820641,-6.419428 2.543728,-4.097563 3.563068,-9.062928 4.21275,-13.841891 C 49.107723,25.018147 48.401726,15.967648 47.433639,9.0332932 47.09109,6.5796321 43.508442,7.2266282 42.329009,5.7211058 41.256823,4.3524824 42.197481,1.860825 40.813604,0.80840168 40.384481,0.48205899 39.716131,0.42556727 39.208747,0.60779459 37.650593,1.1674066 37.318797,3.5633724 35.798426,4.2187227 z"\
+     style="fill:#fffec2;fill-opacity:1;stroke:#878600;stroke-width:2px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />\
+  <path\
+     d="m 15.11608,18.808876 c 1.271657,-1.444003 4.153991,-3.145785 5.495465,-1.7664 2.950062,3.033434 -6.07961,8.17155 -4.219732,11.972265 0.545606,1.114961 2.322391,1.452799 3.532799,1.177599 5.458966,-1.241154 6.490591,-12.132334 12.070397,-11.677864 1.584527,0.129058 2.526156,2.269906 2.845867,3.827199 0.453143,2.207236 -1.962667,6.182399 -1.570133,6.574932 0.392533,0.392533 2.371401,0.909584 3.140266,0.196266 1.91857,-1.779962 -0.490667,-7.752531 0.09813,-7.850664 0.5888,-0.09813 4.421663,2.851694 5.789865,5.004799 0.583188,0.917747 -0.188581,2.956817 0.8832,3.140266 2.128963,0.364398 1.601562,-5.672021 3.729066,-5.299199 1.836829,0.321884 1.450925,3.532631 1.471999,5.397332 0.06743,5.965698 -0.565586,12.731224 -4.317865,17.369596 -3.846028,4.75426 -10.320976,8.31978 -16.388263,7.556266 C 22.030921,53.720741 16.615679,52.58734 11.485147,49.131043 7.9833717,46.771994 6.8028191,42.063042 6.5784815,37.846738 6.3607378,33.754359 8.3381535,29.765466 10.111281,26.070741 c 1.271951,-2.650408 2.940517,-4.917813 5.004799,-7.261865 z"\
+     style="fill:url(#linearGradient2999);fill-opacity:1;stroke:none" />\
+  <path\
+     d="m 32.382709,4.7758124 c -0.123616,1.0811396 1.753928,2.8458658 2.728329,2.9439992 0.974405,0.098134 6.718874,0.7298319 9.159392,-0.1962668 0.820281,-0.3112699 0.968884,-0.9547989 0.974407,-1.4719993 0.02053,-1.9240971 0.03247,-4.7715376 -3.507853,-5.49546551 C 39.556079,0.11012647 37.217081,1.4131653 35.500801,2.2243463 34.054814,2.9077752 32.496703,3.7788369 32.382709,4.7758124 z"\
+     style="fill:#b69556;fill-opacity:1;stroke:#b69556;stroke-width:1.31189477px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /></g>' % (
+            scale, scale)
+    
     def _footer(self):
         return '</svg>\n'
 
