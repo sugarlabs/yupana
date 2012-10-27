@@ -353,7 +353,7 @@ class Yupana():
             gdk_fill_dark_color = Gdk.Color(
                 int(gdk_fill_color.red * 0.5),
                 int(gdk_fill_color.green * 0.5),
-                int(gdk_fill_color.blue * 0.5))
+                int(gdk_fill_color.blue * 0.5)).to_string()
             return str(gdk_fill_dark_color)
 
         self._dot_cache = {}
@@ -478,8 +478,12 @@ class Yupana():
 
 def svg_str_to_pixbuf(svg_string):
     """ Load pixbuf from SVG string """
-    pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
-    pl.write(svg_string)
-    pl.close()
-    pixbuf = pl.get_pixbuf()
-    return pixbuf
+    try:
+        pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
+        pl.write(svg_string)
+        pl.close()
+        pixbuf = pl.get_pixbuf()
+        return pixbuf
+    except:
+        print svg_string
+        return None
