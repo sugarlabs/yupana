@@ -41,46 +41,56 @@
 
 
 
-<g
+<rect
+   width="55"
+   height="55"
+   x="0"
+   y="0"
+   id="rect3018"
+   style="fill:#282828;fill-opacity:1;stroke:none" /><g
    transform="translate(0.77259684,0.78014565)"
    id="g3071"><text
+   x="9.7387857"
+   y="21.770252"
+   id="text2837"
+   xml:space="preserve"
+   style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
      x="9.7387857"
      y="21.770252"
-     id="text2837"
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
-       x="9.7387857"
-       y="21.770252"
-       id="tspan2839"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">1</tspan></text>
+     id="tspan2839"
+     style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">1</tspan></text>
+
 <text
+   x="32.054886"
+   y="21.888905"
+   id="text2837-9"
+   xml:space="preserve"
+   style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
      x="32.054886"
      y="21.888905"
-     id="text2837-9"
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
-       x="32.054886"
-       y="21.888905"
-       id="tspan2839-9"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">2</tspan></text>
+     id="tspan2839-9"
+     style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">2</tspan></text>
+
 <text
+   x="10.345231"
+   y="44.655296"
+   id="text2837-99"
+   xml:space="preserve"
+   style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
      x="10.345231"
      y="44.655296"
-     id="text2837-99"
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
-       x="10.345231"
-       y="44.655296"
-       id="tspan2839-7"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">3</tspan></text>
+     id="tspan2839-7"
+     style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">3</tspan></text>
+
 <text
+   x="31.984575"
+   y="44.536644"
+   id="text2837-5"
+   xml:space="preserve"
+   style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
      x="31.984575"
      y="44.536644"
-     id="text2837-5"
-     xml:space="preserve"
-     style="font-size:40px;font-style:normal;font-weight:normal;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"><tspan
-       x="31.984575"
-       y="44.536644"
-       id="tspan2839-3"
-       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">5</tspan></text>
+     id="tspan2839-3"
+     style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">5</tspan></text>
+
 </g></svg>

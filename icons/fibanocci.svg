@@ -45,7 +45,13 @@
 
 
 
-<text
+<rect
+   width="55"
+   height="55"
+   x="0"
+   y="0"
+   id="rect3018"
+   style="fill:#282828;fill-opacity:1;stroke:none" /><text
    x="10.511383"
    y="22.550398"
    id="text2837"
@@ -55,6 +61,7 @@
      y="22.550398"
      id="tspan2839"
      style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">1</tspan></text>
+
 <text
    x="32.827484"
    y="22.66905"
@@ -65,6 +72,7 @@
      y="22.66905"
      id="tspan2839-9"
      style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">2</tspan></text>
+
 <text
    x="11.117828"
    y="45.435444"
@@ -75,6 +83,7 @@
      y="45.435444"
      id="tspan2839-7"
      style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">5</tspan></text>
+
 <text
    x="26.793793"
    y="45.316792"
@@ -85,4 +94,5 @@
      y="45.316792"
      id="tspan2839-3"
      style="font-size:18px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">20</tspan></text>
+
 </svg>
