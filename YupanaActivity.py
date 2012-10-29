@@ -133,9 +133,9 @@ class YupanaActivity(activity.Activity):
             'factor', yupana_toolbar, self._factor_cb,
             tooltip=_('prime-factor mode'),
             group=self.ten_button)
-        self.fibanocci_button = radio_factory(
-            'fibanocci', yupana_toolbar, self._fibanocci_cb,
-            tooltip=_('fibanocci mode'),
+        self.fibonacci_button = radio_factory(
+            'fibonacci', yupana_toolbar, self._fibonacci_cb,
+            tooltip=_('Fibonacci mode'),
             group=self.ten_button)
         self.custom_button = radio_factory(
             'view-source', yupana_toolbar, self._custom_cb,
@@ -192,9 +192,9 @@ class YupanaActivity(activity.Activity):
         self._yupana.new_yupana(mode='factor')
         self.status.set_label(_('prime-factor mode'))
 
-    def _fibanocci_cb(self, button=None):
-        self._yupana.new_yupana(mode='fibanocci')
-        self.status.set_label(_('fibanocci mode'))
+    def _fibonacci_cb(self, button=None):
+        self._yupana.new_yupana(mode='fibonacci')
+        self.status.set_label(_('Fibonacci mode'))
 
     def _custom_cb(self, button=None):
         if hasattr(self, '_ones'):
@@ -236,8 +236,8 @@ class YupanaActivity(activity.Activity):
                 self.twenty_button.set_active(True)
             elif self.metadata['mode'] == 'factor':
                 self.factor_button.set_active(True)
-            elif self.metadata['mode'] == 'fibanocci':
-                self.fibanocci_button.set_active(True)
+            elif self.metadata['mode'] == 'fibonacci':
+                self.fibonacci_button.set_active(True)
             else:
                 self.custom_button.set_active(True)
         if 'dotlist' in self.metadata:

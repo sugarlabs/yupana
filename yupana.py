@@ -197,7 +197,7 @@ class Yupana():
                     else:
                         self._dots[o + i].set_label('5')
                 self._dots[o - 1].set_label('10')
-            elif mode == 'fibanocci':
+            elif mode == 'fibonacci':
                 for i in range(TEN + 1):
                     if i in [10]:
                         self._dots[o + i].set_label('1')
@@ -292,7 +292,7 @@ class Yupana():
                 return (10 ** e) * 3
             else:
                 return (10 ** e) * 5
-        elif self._mode == 'fibanocci':
+        elif self._mode == 'fibonacci':
             if m in [10]:
                 return 60 ** e
             elif m in [8, 9]:
