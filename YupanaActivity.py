@@ -1,4 +1,4 @@
-#Copyright (c) 2011 Walter Bender
+#Copyright (c) 2011,12 Walter Bender
 #Copyright (c) 2012 Ignacio Rodriguez
 
 # This program is free software; you can redistribute it and/or modify
@@ -14,16 +14,10 @@ from gi.repository import Gtk, Gdk, GObject
 
 from sugar3.activity import activity
 from sugar3 import profile
-try:
-    from sugar3.graphics.toolbarbox import ToolbarBox
-    _have_toolbox = True
-except ImportError:
-    _have_toolbox = False
-
-if _have_toolbox:
-    from sugar3.activity.widgets import ActivityToolbarButton
-    from sugar3.activity.widgets import StopButton
-    from sugar3.graphics.toolbarbox import ToolbarButton
+from sugar3.graphics.toolbarbox import ToolbarBox
+from sugar3.activity.widgets import ActivityToolbarButton
+from sugar3.activity.widgets import StopButton
+from sugar3.graphics.toolbarbox import ToolbarButton
 
 from toolbar_utils import button_factory, label_factory, separator_factory, \
     radio_factory, entry_factory
@@ -66,7 +60,7 @@ class YupanaActivity(activity.Activity):
         else:
             self.colors = ['#A0FFA0', '#FF8080']
 
-        self._setup_toolbars(_have_toolbox)
+        self._setup_toolbars()
         self._setup_dispatch_table()
 
         # Create a canvas
@@ -89,56 +83,44 @@ class YupanaActivity(activity.Activity):
         if self._reload_custom:
             self._custom_cb()
 
-    def _setup_toolbars(self, have_toolbox):
+    def _setup_toolbars(self):
         """ Setup the toolbars. """
 
         self.max_participants = 4
 
         yupana_toolbar = Gtk.Toolbar()
         self.custom_toolbar = Gtk.Toolbar()
-        if have_toolbox:
-            toolbox = ToolbarBox()
+        toolbox = ToolbarBox()
 
-            # Activity toolbar
-            activity_button = ActivityToolbarButton(self)
+        # Activity toolbar
+        activity_button = ActivityToolbarButton(self)
 
-            toolbox.toolbar.insert(activity_button, 0)
-            activity_button.show()
+        toolbox.toolbar.insert(activity_button, 0)
+        activity_button.show()
 
-            yupana_toolbar_button = ToolbarButton(
-                label=_("Mode"), page=yupana_toolbar,
-                icon_name='preferences-system')
-            yupana_toolbar.show()
-            toolbox.toolbar.insert(yupana_toolbar_button, -1)
-            yupana_toolbar_button.show()
+        yupana_toolbar_button = ToolbarButton(
+            label=_("Mode"), page=yupana_toolbar,
+            icon_name='preferences-system')
+        yupana_toolbar.show()
+        toolbox.toolbar.insert(yupana_toolbar_button, -1)
+        yupana_toolbar_button.show()
 
-            custom_toolbar_button = ToolbarButton(
-                label=_("Custom"), page=self.custom_toolbar,
-                icon_name='view-source')
-            self.custom_toolbar.show()
-            toolbox.toolbar.insert(custom_toolbar_button, -1)
-            custom_toolbar_button.show()
+        custom_toolbar_button = ToolbarButton(
+            label=_("Custom"), page=self.custom_toolbar,
+            icon_name='view-source')
+        self.custom_toolbar.show()
+        toolbox.toolbar.insert(custom_toolbar_button, -1)
+        custom_toolbar_button.show()
 
-            self.set_toolbar_box(toolbox)
-            toolbox.show()
-            self.toolbar = toolbox.toolbar
-
-        else:
-            # Use pre-0.86 toolbar design
-            toolbox = activity.ActivityToolbox(self)
-            self.set_toolbox(toolbox)
-            toolbox.add_toolbar(_('Yupana'), yupana_toolbar)
-            toolbox.add_toolbar(_('Custom'), self.custom_toolbar)
-            toolbox.show()
-            toolbox.set_current_toolbar(1)
-            self.toolbar = yupana_toolbar
+        self.set_toolbar_box(toolbox)
+        toolbox.show()
+        self.toolbar = toolbox.toolbar
 
         self._new_yupana_button = button_factory(
             'edit-delete', self.toolbar, self._new_yupana_cb,
             tooltip=_('Clear the yupana.'))
 
-        if not _have_toolbox:
-            separator_factory(yupana_toolbar, False, True)
+        separator_factory(yupana_toolbar, False, True)
 
         self.ten_button = radio_factory(
             'ten', yupana_toolbar, self._ten_cb, tooltip=_('decimal mode'),
@@ -161,17 +143,15 @@ class YupanaActivity(activity.Activity):
             group=self.ten_button)
 
         separator_factory(self.toolbar, False, False)
-        self.status = label_factory(self.toolbar, '')
+        self.status = label_factory(self.toolbar, '', width=200)
         self.status.set_label(_('decimal mode'))
 
-        if _have_toolbox:
-            separator_factory(toolbox.toolbar, True, False)
+        separator_factory(toolbox.toolbar, True, False)
 
-        if _have_toolbox:
-            stop_button = StopButton(self)
-            stop_button.props.accelerator = '<Ctrl>q'
-            toolbox.toolbar.insert(stop_button, -1)
-            stop_button.show()
+        stop_button = StopButton(self)
+        stop_button.props.accelerator = '<Ctrl>q'
+        toolbox.toolbar.insert(stop_button, -1)
+        stop_button.show()
 
     def _make_custom_toolbar(self):
         self._ones = entry_factory(str(self._yupana.custom[0]),
