@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 #Copyright (c) 2011 Walter Bender
+#Copyright (c) 2012 Ignacio Rodriguez
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -10,8 +11,7 @@
 # along with this library; if not, write to the Free Software
 # Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
 
-
-import gtk
+from gi.repository import Gtk, Gdk, GdkPixbuf
 import cairo
 
 from random import uniform
@@ -22,7 +22,7 @@ import logging
 _logger = logging.getLogger('yupana-activity')
 
 try:
-    from sugar.graphics import style
+    from sugar3.graphics import style
     GRID_CELL_SIZE = style.GRID_CELL_SIZE
 except ImportError:
     GRID_CELL_SIZE = 0
@@ -49,13 +49,12 @@ class Yupana():
             parent.show_all()
             self._parent = parent
 
-        self._canvas.set_flags(gtk.CAN_FOCUS)
-        self._canvas.add_events(gtk.gdk.BUTTON_PRESS_MASK)
-        self._canvas.connect("expose-event", self._expose_cb)
+        self._canvas.add_events(Gdk.EventMask.BUTTON_PRESS_MASK)
+        self._canvas.connect("draw", self.__draw_cb)
         self._canvas.connect("button-press-event", self._button_press_cb)
 
-        self._width = gtk.gdk.screen_width()
-        self._height = gtk.gdk.screen_height() - (GRID_CELL_SIZE * 1.5)
+        self._width = Gdk.Screen.width()
+        self._height = Gdk.Screen.height() - (GRID_CELL_SIZE * 1.5)
         self._scale = self._width / (20 * DOT_SIZE * 1.1)
         self._dot_size = int(DOT_SIZE * self._scale)
         self._space = int(self._dot_size / 5.)
@@ -329,8 +328,8 @@ class Yupana():
         ''' calculate the grid column and row for a dot '''
         return [dot % TEN, int(dot / TEN)]
 
-    def _expose_cb(self, win, event):
-        self.do_expose_event(event)
+    def __draw_cb(self, canvas, cr):
+	self._sprites.redraw_sprites(cr=cr)
 
     def do_expose_event(self, event):
         ''' Handle the expose-event by drawing '''
@@ -343,17 +342,17 @@ class Yupana():
         self._sprites.redraw_sprites(cr=cr)
 
     def _destroy_cb(self, win, event):
-        gtk.main_quit()
+        Gtk.main_quit()
 
     def _new_dot(self, color):
         ''' generate a dot of a color color '''
         def darken(color):
             ''' return a darker color than color '''
-            gdk_fill_color = gtk.gdk.color_parse(self._fill)
-            gdk_fill_dark_color = gtk.gdk.Color(
+            gdk_fill_color = Gdk.color_parse(self._fill)
+            gdk_fill_dark_color = Gdk.Color(
                 int(gdk_fill_color.red * 0.5),
                 int(gdk_fill_color.green * 0.5),
-                int(gdk_fill_color.blue * 0.5))
+                int(gdk_fill_color.blue * 0.5)).to_string()
             return str(gdk_fill_dark_color)
 
         self._dot_cache = {}
@@ -379,8 +378,7 @@ class Yupana():
             surface = cairo.ImageSurface(cairo.FORMAT_ARGB32,
                                          self._svg_width, self._svg_height)
             context = cairo.Context(surface)
-            context = gtk.gdk.CairoContext(context)
-            context.set_source_pixbuf(pixbuf, 0, 0)
+	    Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
             context.rectangle(0, 0, self._svg_width, self._svg_height)
             context.fill()
             self._dot_cache[color] = surface
@@ -495,8 +493,12 @@ class Yupana():
 
 def svg_str_to_pixbuf(svg_string):
     """ Load pixbuf from SVG string """
-    pl = gtk.gdk.PixbufLoader('svg')
-    pl.write(svg_string)
-    pl.close()
-    pixbuf = pl.get_pixbuf()
-    return pixbuf
+    try:
+        pl = GdkPixbuf.PixbufLoader.new_with_type('svg')
+        pl.write(svg_string)
+        pl.close()
+        pixbuf = pl.get_pixbuf()
+        return pixbuf
+    except:
+        print svg_string
+        return None

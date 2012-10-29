@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-05 15:57-0500\n"
+"POT-Creation-Date: 2012-02-06 15:11-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,62 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: activity/activity.info:2 YupanaActivity.py:108
+#: activity/activity.info:2 YupanaActivity.py:129
 msgid "Yupana"
 msgstr ""
 
-#: YupanaActivity.py:115
+#: YupanaActivity.py:108
+msgid "Mode"
+msgstr ""
+
+#: YupanaActivity.py:115 YupanaActivity.py:130
+msgid "Custom"
+msgstr ""
+
+#: YupanaActivity.py:137
 msgid "Clear the yupana."
+msgstr ""
+
+#: YupanaActivity.py:143 YupanaActivity.py:164 YupanaActivity.py:205
+msgid "decimal mode"
+msgstr ""
+
+#: YupanaActivity.py:147 YupanaActivity.py:209
+msgid "base-twenty mode"
+msgstr ""
+
+#: YupanaActivity.py:151 YupanaActivity.py:213
+msgid "prime-factor mode"
+msgstr ""
+
+#: YupanaActivity.py:155 YupanaActivity.py:217
+msgid "fibanocci mode"
+msgstr ""
+
+#: YupanaActivity.py:159 YupanaActivity.py:230
+msgid "custom mode"
+msgstr ""
+
+#: YupanaActivity.py:178
+msgid "one row"
+msgstr ""
+
+#: YupanaActivity.py:181
+msgid "two row"
+msgstr ""
+
+#: YupanaActivity.py:184
+msgid "three row"
+msgstr ""
+
+#: YupanaActivity.py:187
+msgid "five row"
+msgstr ""
+
+#: YupanaActivity.py:192
+msgid "base"
+msgstr ""
+
+#: YupanaActivity.py:196
+msgid "Reload custom values."
 msgstr ""
