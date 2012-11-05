@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-29 08:23-0400\n"
+"PO-Revision-Date: 2012-11-05 22:35+0200\n"
+"Last-Translator: whe <heppew@yahoo.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+#: YupanaActivity.py:130
+msgid "Yupana"
+msgstr "Yupana"
+
+#: YupanaActivity.py:109
+msgid "Mode"
+msgstr "Modus"
+
+#: YupanaActivity.py:116 YupanaActivity.py:131
+msgid "Custom"
+msgstr "Aangepast"
+
+#: YupanaActivity.py:138
+msgid "Clear the yupana."
+msgstr "Wis de yupana."
+
+#: YupanaActivity.py:144 YupanaActivity.py:165 YupanaActivity.py:205
+msgid "decimal mode"
+msgstr "decimale modus"
+
+#: YupanaActivity.py:148 YupanaActivity.py:209
+msgid "base-twenty mode"
+msgstr "basis-twintig modus"
+
+#: YupanaActivity.py:152 YupanaActivity.py:213
+msgid "prime-factor mode"
+msgstr "priemfactoren modus"
+
+#: YupanaActivity.py:156 YupanaActivity.py:217
+msgid "fibanocci mode"
+msgstr "fibanocci modus"
+
+#: YupanaActivity.py:160 YupanaActivity.py:230
+msgid "custom mode"
+msgstr "aangepaste modus"
+
+#: YupanaActivity.py:179
+msgid "one row"
+msgstr "één rij"
+
+#: YupanaActivity.py:182
+msgid "two row"
+msgstr "twee rij"
+
+#: YupanaActivity.py:185
+msgid "three row"
+msgstr "drie rij"
+
+#: YupanaActivity.py:188
+msgid "five row"
+msgstr "vijf rij"
+
+#: YupanaActivity.py:193
+msgid "base"
+msgstr "basis"
+
+#: YupanaActivity.py:197
+msgid "Reload custom values."
+msgstr "Herlaad aangepaste waarden."
