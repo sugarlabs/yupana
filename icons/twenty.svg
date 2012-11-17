@@ -33,7 +33,13 @@
 			
 		</defs>
 
-<text
+<rect
+   width="55"
+   height="55"
+   x="0"
+   y="0"
+   id="rect3018"
+   style="fill:#282828;fill-opacity:1;stroke:none" /><text
    x="4.5263672"
    y="40.367188"
    id="text2837"
@@ -43,6 +49,7 @@
      y="40.367188"
      id="tspan2839"
      style="font-size:36px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffffff;font-family:DejaVu Sans;-inkscape-font-specification:DejaVu Sans">20</tspan></text>
+
 
 
 
