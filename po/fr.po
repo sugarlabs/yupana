@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-29 08:23-0400\n"
+"PO-Revision-Date: 2012-11-24 18:38+0200\n"
+"Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+#: YupanaActivity.py:130
+msgid "Yupana"
+msgstr "Yupana"
+
+#: YupanaActivity.py:109
+msgid "Mode"
+msgstr "Mode"
+
+#: YupanaActivity.py:116 YupanaActivity.py:131
+msgid "Custom"
+msgstr "Personnalisé"
+
+#: YupanaActivity.py:138
+msgid "Clear the yupana."
+msgstr "Efface le yupana"
+
+#: YupanaActivity.py:144 YupanaActivity.py:165 YupanaActivity.py:205
+msgid "decimal mode"
+msgstr "mode décimal"
+
+#: YupanaActivity.py:148 YupanaActivity.py:209
+msgid "base-twenty mode"
+msgstr "mode en base vingt"
+
+#: YupanaActivity.py:152 YupanaActivity.py:213
+msgid "prime-factor mode"
+msgstr "mode facteur primaire"
+
+#: YupanaActivity.py:156 YupanaActivity.py:217
+msgid "fibanocci mode"
+msgstr "mode fibanocci"
+
+#: YupanaActivity.py:160 YupanaActivity.py:230
+msgid "custom mode"
+msgstr "mode personnalisé"
+
+#: YupanaActivity.py:179
+msgid "one row"
+msgstr "une ligne"
+
+#: YupanaActivity.py:182
+msgid "two row"
+msgstr "deux lignes"
+
+#: YupanaActivity.py:185
+msgid "three row"
+msgstr "trois lignes"
+
+#: YupanaActivity.py:188
+msgid "five row"
+msgstr "cinq lignes"
+
+#: YupanaActivity.py:193
+msgid "base"
+msgstr "base"
+
+#: YupanaActivity.py:197
+msgid "Reload custom values."
+msgstr "Recharge les valeurs personnalisées."
