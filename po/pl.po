@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-18 00:33-0500\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.7.0\n"
+
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Yupana"
+msgstr ""
+
+#: YupanaActivity.py:102
+msgid "Mode"
+msgstr ""
+
+#: YupanaActivity.py:109
+msgid "Custom"
+msgstr ""
+
+#: YupanaActivity.py:121
+msgid "Clear the yupana."
+msgstr ""
+
+#: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
+msgid "decimal mode"
+msgstr ""
+
+#: YupanaActivity.py:130 YupanaActivity.py:189
+msgid "base-twenty mode"
+msgstr ""
+
+#: YupanaActivity.py:134 YupanaActivity.py:193
+msgid "prime-factor mode"
+msgstr ""
+
+#: YupanaActivity.py:138 YupanaActivity.py:197
+msgid "Fibonacci mode"
+msgstr ""
+
+#: YupanaActivity.py:142 YupanaActivity.py:210
+msgid "custom mode"
+msgstr ""
+
+#: YupanaActivity.py:159
+msgid "one row"
+msgstr ""
+
+#: YupanaActivity.py:162
+msgid "two row"
+msgstr ""
+
+#: YupanaActivity.py:165
+msgid "three row"
+msgstr ""
+
+#: YupanaActivity.py:168
+msgid "five row"
+msgstr ""
+
+#: YupanaActivity.py:173
+msgid "base"
+msgstr ""
+
+#: YupanaActivity.py:177
+msgid "Reload custom values."
+msgstr ""
