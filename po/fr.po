@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2012-11-18 00:33-0500\n"
-"PO-Revision-Date: 2012-11-24 18:38+0200\n"
+"PO-Revision-Date: 2013-03-25 10:29+0200\n"
 "Last-Translator: samy boutayeb <s.boutayeb@free.fr>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -48,9 +48,8 @@ msgid "prime-factor mode"
 msgstr "mode facteur primaire"
 
 #: YupanaActivity.py:138 YupanaActivity.py:197
-#, fuzzy
 msgid "Fibonacci mode"
-msgstr "mode fibanocci"
+msgstr "mode Fibonacci "
 
 #: YupanaActivity.py:142 YupanaActivity.py:210
 msgid "custom mode"
