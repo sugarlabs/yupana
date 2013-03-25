@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-29 08:23-0400\n"
-"PO-Revision-Date: 2012-11-05 22:35+0200\n"
+"POT-Creation-Date: 2012-11-18 00:33-0500\n"
+"PO-Revision-Date: 2012-12-10 23:28+0200\n"
 "Last-Translator: whe <heppew@yahoo.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: nl\n"
@@ -20,62 +20,61 @@ msgstr ""
 #. TRANS: "name" option from activity.info file
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
-#: YupanaActivity.py:130
 msgid "Yupana"
 msgstr "Yupana"
 
-#: YupanaActivity.py:109
+#: YupanaActivity.py:102
 msgid "Mode"
 msgstr "Modus"
 
-#: YupanaActivity.py:116 YupanaActivity.py:131
+#: YupanaActivity.py:109
 msgid "Custom"
 msgstr "Aangepast"
 
-#: YupanaActivity.py:138
+#: YupanaActivity.py:121
 msgid "Clear the yupana."
 msgstr "Wis de yupana."
 
-#: YupanaActivity.py:144 YupanaActivity.py:165 YupanaActivity.py:205
+#: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
 msgid "decimal mode"
 msgstr "decimale modus"
 
-#: YupanaActivity.py:148 YupanaActivity.py:209
+#: YupanaActivity.py:130 YupanaActivity.py:189
 msgid "base-twenty mode"
 msgstr "basis-twintig modus"
 
-#: YupanaActivity.py:152 YupanaActivity.py:213
+#: YupanaActivity.py:134 YupanaActivity.py:193
 msgid "prime-factor mode"
 msgstr "priemfactoren modus"
 
-#: YupanaActivity.py:156 YupanaActivity.py:217
-msgid "fibanocci mode"
-msgstr "fibanocci modus"
+#: YupanaActivity.py:138 YupanaActivity.py:197
+msgid "Fibonacci mode"
+msgstr "Fibonacci modus"
 
-#: YupanaActivity.py:160 YupanaActivity.py:230
+#: YupanaActivity.py:142 YupanaActivity.py:210
 msgid "custom mode"
 msgstr "aangepaste modus"
 
-#: YupanaActivity.py:179
+#: YupanaActivity.py:159
 msgid "one row"
 msgstr "één rij"
 
-#: YupanaActivity.py:182
+#: YupanaActivity.py:162
 msgid "two row"
 msgstr "twee rij"
 
-#: YupanaActivity.py:185
+#: YupanaActivity.py:165
 msgid "three row"
 msgstr "drie rij"
 
-#: YupanaActivity.py:188
+#: YupanaActivity.py:168
 msgid "five row"
 msgstr "vijf rij"
 
-#: YupanaActivity.py:193
+#: YupanaActivity.py:173
 msgid "base"
 msgstr "basis"
 
-#: YupanaActivity.py:197
+#: YupanaActivity.py:177
 msgid "Reload custom values."
 msgstr "Herlaad aangepaste waarden."
