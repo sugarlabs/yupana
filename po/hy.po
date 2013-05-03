@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-11-18 00:33-0500\n"
+"PO-Revision-Date: 2013-05-02 15:09+0200\n"
+"Last-Translator: anushnur <anush.mkrtchyan@ca1492.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: hy\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.0.5\n"
+
+#. TRANS: "name" option from activity.info file
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Yupana"
+msgstr "Յուպանա"
+
+#: YupanaActivity.py:102
+msgid "Mode"
+msgstr "Ռեժիմ"
+
+#: YupanaActivity.py:109
+msgid "Custom"
+msgstr "Անձնավորել"
+
+#: YupanaActivity.py:121
+msgid "Clear the yupana."
+msgstr "Մաքրել Յուպանան"
+
+#: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
+msgid "decimal mode"
+msgstr "տասնորդական ռեժիմ"
+
+#: YupanaActivity.py:130 YupanaActivity.py:189
+msgid "base-twenty mode"
+msgstr "քսան հիմքի ռեժիմ"
+
+#: YupanaActivity.py:134 YupanaActivity.py:193
+msgid "prime-factor mode"
+msgstr "հիմնական ֆակտոր ռեժիմ"
+
+#: YupanaActivity.py:138 YupanaActivity.py:197
+msgid "Fibonacci mode"
+msgstr "Ֆիբանոչիի ռեժիմ"
+
+#: YupanaActivity.py:142 YupanaActivity.py:210
+msgid "custom mode"
+msgstr "անձնավորված ռեժիմ"
+
+#: YupanaActivity.py:159
+msgid "one row"
+msgstr "մեկ շարք"
+
+#: YupanaActivity.py:162
+msgid "two row"
+msgstr "երկու շարք"
+
+#: YupanaActivity.py:165
+msgid "three row"
+msgstr "երեքշարք"
+
+#: YupanaActivity.py:168
+msgid "five row"
+msgstr "հինգ շարք"
+
+#: YupanaActivity.py:173
+msgid "base"
+msgstr "հիմք"
+
+#: YupanaActivity.py:177
+msgid "Reload custom values."
+msgstr "Վերբեռնված անձնավորված արժեքներ"
