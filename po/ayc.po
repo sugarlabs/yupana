@@ -7,10 +7,10 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-25 00:31-0400\n"
-"PO-Revision-Date: 2013-06-17 06:40+0200\n"
-"Last-Translator: Chris <cjl@laptop.org>\n"
+"PO-Revision-Date: 2013-06-23 00:52+0200\n"
+"Last-Translator: EdgarQuispeChambi <quispedgar@yahoo.es>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: en_GB\n"
+"Language: ayc\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,65 +19,65 @@ msgstr ""
 
 #. TRANS: "name" option from activity.info file
 msgid "Yupana"
-msgstr "Yupana"
+msgstr "Jakhuña"
 
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid "Incan calculator"
-msgstr "Incan calculator"
+msgstr "Inka achachilana jakhuñapa"
 
 #: YupanaActivity.py:102
 msgid "Mode"
-msgstr "Mode"
+msgstr "Uñanaqa"
 
 #: YupanaActivity.py:109
 msgid "Custom"
-msgstr "Custom"
+msgstr "Jaqichjata"
 
 #: YupanaActivity.py:121
 msgid "Clear the yupana."
-msgstr "Clear the yupana."
+msgstr "Jakhuña q'umachaña"
 
 #: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
 msgid "decimal mode"
-msgstr "decimal mode"
+msgstr ""
 
 #: YupanaActivity.py:130 YupanaActivity.py:189
 msgid "base-twenty mode"
-msgstr "base-twenty mode"
+msgstr ""
 
 #: YupanaActivity.py:134 YupanaActivity.py:193
 msgid "prime-factor mode"
-msgstr "prime-factor mode"
+msgstr ""
 
 #: YupanaActivity.py:138 YupanaActivity.py:197
 msgid "Fibonacci mode"
-msgstr "Fibonacci mode"
+msgstr ""
 
 #: YupanaActivity.py:142 YupanaActivity.py:210
 msgid "custom mode"
-msgstr "custom mode"
+msgstr ""
 
 #: YupanaActivity.py:159
 msgid "one row"
-msgstr "one row"
+msgstr ""
 
 #: YupanaActivity.py:162
 msgid "two row"
-msgstr "two row"
+msgstr ""
 
 #: YupanaActivity.py:165
 msgid "three row"
-msgstr "three row"
+msgstr ""
 
 #: YupanaActivity.py:168
 msgid "five row"
-msgstr "five row"
+msgstr ""
 
 #: YupanaActivity.py:173
 msgid "base"
-msgstr "base"
+msgstr ""
 
 #: YupanaActivity.py:177
 msgid "Reload custom values."
-msgstr "Reload custom values."
+msgstr ""
