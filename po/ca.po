@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-05-25 00:31-0400\n"
+"PO-Revision-Date: 2016-04-26 06:30+0000\n"
+"Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ca\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1461652230.000000\n"
+
+#. TRANS: "name" option from activity.info file
+msgid "Yupana"
+msgstr "Yupana"
+
+#. TRANS: "summary" option from activity.info file
+#. TRANS: "description" option from activity.info file
+msgid "Incan calculator"
+msgstr "Eina per comptar dels inques"
+
+#: YupanaActivity.py:102
+msgid "Mode"
+msgstr "Mode"
+
+#: YupanaActivity.py:109
+msgid "Custom"
+msgstr "Personalitzat"
+
+#: YupanaActivity.py:121
+msgid "Clear the yupana."
+msgstr "Neteja la yupana."
+
+#: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
+msgid "decimal mode"
+msgstr "mode base decimal"
+
+#: YupanaActivity.py:130 YupanaActivity.py:189
+msgid "base-twenty mode"
+msgstr "mode base vigesimal"
+
+#: YupanaActivity.py:134 YupanaActivity.py:193
+msgid "prime-factor mode"
+msgstr "mode factors primers"
+
+#: YupanaActivity.py:138 YupanaActivity.py:197
+msgid "Fibonacci mode"
+msgstr "mode Fibonacci"
+
+#: YupanaActivity.py:142 YupanaActivity.py:210
+msgid "custom mode"
+msgstr "mode personalitzat"
+
+#: YupanaActivity.py:159
+msgid "one row"
+msgstr "una fila"
+
+#: YupanaActivity.py:162
+msgid "two row"
+msgstr "dues files"
+
+#: YupanaActivity.py:165
+msgid "three row"
+msgstr "tres files"
+
+#: YupanaActivity.py:168
+msgid "five row"
+msgstr "cinc files"
+
+#: YupanaActivity.py:173
+msgid "base"
+msgstr "base"
+
+#: YupanaActivity.py:177
+msgid "Reload custom values."
+msgstr "Recarrega els valors personalitzats."
