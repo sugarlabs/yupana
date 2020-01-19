@@ -50,7 +50,7 @@ class YupanaActivity(activity.Activity):
         """ Initialize the toolbars and the yupana """
         try:
             super(YupanaActivity, self).__init__(handle)
-        except dbus.exceptions.DBusException, e:
+        except dbus.exceptions.DBusException as e:
             _logger.error(str(e))
 
         self.nick = profile.get_nick_name()
