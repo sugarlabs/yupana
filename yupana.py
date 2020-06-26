@@ -330,7 +330,7 @@ class Yupana():
         return [dot % TEN, int(dot / TEN)]
 
     def __draw_cb(self, canvas, cr):
-	self._sprites.redraw_sprites(cr=cr)
+        self._sprites.redraw_sprites(cr=cr)
 
     def do_expose_event(self, event):
         ''' Handle the expose-event by drawing '''
@@ -380,7 +380,7 @@ class Yupana():
             surface = cairo.ImageSurface(cairo.FORMAT_ARGB32,
                                          self._svg_width, self._svg_height)
             context = cairo.Context(surface)
-	    Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
+            Gdk.cairo_set_source_pixbuf(context, pixbuf, 0, 0)
             context.rectangle(0, 0, self._svg_width, self._svg_height)
             context.fill()
             self._dot_cache[color] = surface
