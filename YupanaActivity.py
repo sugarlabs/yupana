@@ -9,7 +9,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this library; if not, write to the Free Software
 # Foundation, 51 Franklin Street, Suite 500 Boston, MA 02110-1335 USA
-
+import gi
+gi.require_version('Gdk','3.0')
+gi.require_version('Gtk','3.0')
 from gi.repository import Gtk, Gdk, GObject
 
 from sugar3.activity import activity
