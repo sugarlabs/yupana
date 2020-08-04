@@ -25,14 +25,9 @@ from toolbar_utils import button_factory, label_factory, separator_factory, \
     radio_factory, entry_factory
 from utils import json_load, json_dump
 
-from gi.repository import TelepathyGLib
-import dbus
-from dbus.service import signal
-from dbus.gi_service import ExportedGObject
-from sugar3.presence import presenceservice
-from sugar3.presence.tubeconn import TubeConnection
-
 from gettext import gettext as _
+
+from collabwrapper import CollabWrapper
 
 from yupana import Yupana
 
@@ -40,20 +35,12 @@ import logging
 _logger = logging.getLogger('yupana-activity')
 
 
-SERVICE = 'org.sugarlabs.YupanaActivity'
-IFACE = SERVICE
-PATH = '/org/augarlabs/YupanaActivity'
-
-
 class YupanaActivity(activity.Activity):
     """ Yupana counting device """
 
     def __init__(self, handle):
         """ Initialize the toolbars and the yupana """
-        try:
-            super(YupanaActivity, self).__init__(handle)
-        except dbus.exceptions.DBusException as e:
-            _logger.error(str(e))
+        super().__init__(handle)
 
         self.nick = profile.get_nick_name()
         self._reload_custom = False
@@ -63,7 +50,6 @@ class YupanaActivity(activity.Activity):
             self.colors = ['#A0FFA0', '#FF8080']
 
         self._setup_toolbars()
-        self._setup_dispatch_table()
 
         # Create a canvas
         canvas = Gtk.DrawingArea()
@@ -74,7 +60,7 @@ class YupanaActivity(activity.Activity):
         self.show_all()
 
         self._yupana = Yupana(canvas, parent=self, colors=self.colors)
-        self._setup_presence_service()
+        self._setup_collab()
 
         if 'dotlist' in self.metadata:
             self._restore()
@@ -247,146 +233,72 @@ class YupanaActivity(activity.Activity):
             dots = self.metadata['dotlist'].split()
             for dot in dots:
                 dot_list.append(int(dot))
-            self._yupana.restore_yupana(dot_list)
+            self._yupana.restore_yupana(self.metadata['mode'],dot_list)
 
     # Collaboration-related methods
 
-    # FIXME: share mode
-
-    def _setup_presence_service(self):
+    def _setup_collab(self):
         """ Setup the Presence Service. """
-        self.pservice = presenceservice.get_instance()
         self.initiating = None  # sharing (True) or joining (False)
 
-        owner = self.pservice.get_owner()
-        self.owner = owner
-        self._share = ""
         self.connect('shared', self._shared_cb)
         self.connect('joined', self._joined_cb)
+        self._collab = CollabWrapper(self)
+        self._collab.connect('message', self._message_cb)
+        self._collab.connect('joined', self._joined_cb)
+        self._collab.setup()
+
+    def set_data(self, data):
+        pass
+
+    def get_data(self):
+        return None
 
     def _shared_cb(self, activity):
         """ Either set up initial share..."""
-        self._new_tube_common(True)
+        self.after_share_join(True)
 
     def _joined_cb(self, activity):
         """ ...or join an exisiting share. """
-        self._new_tube_common(False)
+        self.after_share_join(False)
 
-    def _new_tube_common(self, sharer):
+    def after_share_join(self, sharer):
         """ Joining and sharing are mostly the same... """
-        if self.shared_activity is None:
-            _logger.debug("Error: Failed to share or join activity ... \
-                shared_activity is null in _shared_cb()")
-            return
-
         self.initiating = sharer
         self.waiting_for_hand = not sharer
 
-        self.conn = self.shared_activity.telepathy_conn
-        self.tubes_chan = self.shared_activity.telepathy_tubes_chan
-        self.text_chan = self.shared_activity.telepathy_text_chan
-
-        self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].connect_to_signal(
-            'NewTube', self._new_tube_cb)
-
-        if sharer:
-            _logger.debug('This is my activity: making a tube...')
-            id = self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].OfferDBusTube(
-                SERVICE, {})
-        else:
-            _logger.debug('I am joining an activity: waiting for a tube...')
-            self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].ListTubes(
-                reply_handler=self._list_tubes_reply_cb,
-                error_handler=self._list_tubes_error_cb)
         self._yupana.set_sharing(True)
 
-    def _list_tubes_reply_cb(self, tubes):
-        """ Reply to a list request. """
-        for tube_info in tubes:
-            self._new_tube_cb(*tube_info)
-
-    def _list_tubes_error_cb(self, e):
-        """ Log errors. """
-        _logger.debug('Error: ListTubes() failed: %s' % (e))
-
-    def _new_tube_cb(self, id, initiator, type, service, params, state):
-        """ Create a new tube. """
-        _logger.debug('New tube: ID=%d initator=%d type=%d service=%s \
-params=%r state=%d' % (id, initiator, type, service, params, state))
-
-        if (type == TelepathyGLib.IFACE_CHANNEL_TYPE_DBUS_TUBE and service == SERVICE):
-            if state == TelepathyGLib.TubeState.LOCAL_PENDING:
-                self.tubes_chan[ \
-                              TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES].AcceptDBusTube(id)
-
-            tube_conn = TubeConnection(self.conn,
-                self.tubes_chan[TelepathyGLib.IFACE_CHANNEL_TYPE_TUBES], id, \
-                group_iface=self.text_chan[TelepathyGLib.IFACE_CHANNEL_INTERFACE_GROUP])
-
-            self.chattube = ChatTube(tube_conn, self.initiating, \
-                self.event_received_cb)
-
-    def _setup_dispatch_table(self):
-        ''' Associate tokens with commands. '''
-        self._processing_methods = {
-            'n': [self._receive_new_yupana, 'get a new yupana grid'],
-            'p': [self._receive_dot_click, 'get a dot click'],
-            }
-
-    def event_received_cb(self, event_message):
-        ''' Data from a tube has arrived. '''
-        if len(event_message) == 0:
-            return
-        try:
-            command, payload = event_message.split('|', 2)
-        except ValueError:
-            _logger.debug('Could not split event message %s' % (event_message))
-            return
-        self._processing_methods[command][0](payload)
+    def _message_cb(self, collab, buddy, msg):
+        command = msg.get('command')
+        payload = msg.get('payload')
+        if command == 'new_game':
+            '''Get a new yupana grid'''
+            self._receive_new_yupana(payload)
+        elif command == 'played':
+            '''Get a dot click'''
+            self._receive_dot_click(payload)
 
     def send_new_yupana(self):
         ''' Send a new orientation, grid to all players '''
-        self.send_event('n|%s' % (json_dump(self._yupana.save_yupana())))
+        self._collab.post(dict(
+            command='new_game',
+            payload=json_dump(self._yupana.save_yupana())
+        ))
 
     def _receive_new_yupana(self, payload):
         ''' Sharer can start a new yupana. '''
-        dot_list = json_load(payload)
-        self._yupana.restore_yupana(dot_list)
+        mode,dot_list = json_load(payload)
+        self._yupana.restore_yupana(mode,dot_list)
 
     def send_dot_click(self, dot, color):
         ''' Send a dot click to all the players '''
-        self.send_event('p|%s' % (json_dump([dot, color])))
+        self._collab.post(dict(
+            command='played',
+            payload=json_dump([dot, color])
+        ))
 
     def _receive_dot_click(self, payload):
         ''' When a dot is clicked, everyone should change its color. '''
         (dot, color) = json_load(payload)
         self._yupana.remote_button_press(dot, color)
-
-    def send_event(self, entry):
-        """ Send event through the tube. """
-        if hasattr(self, 'chattube') and self.chattube is not None:
-            self.chattube.SendText(entry)
-
-
-class ChatTube(ExportedGObject):
-    """ Class for setting up tube for sharing """
-
-    def __init__(self, tube, is_initiator, stack_received_cb):
-        super(ChatTube, self).__init__(tube, PATH)
-        self.tube = tube
-        self.is_initiator = is_initiator  # Are we sharing or joining activity?
-        self.stack_received_cb = stack_received_cb
-        self.stack = ''
-
-        self.tube.add_signal_receiver(self.send_stack_cb, 'SendText', IFACE,
-                                      path=PATH, sender_keyword='sender')
-
-    def send_stack_cb(self, text, sender=None):
-        if sender == self.tube.get_unique_name():
-            return
-        self.stack = text
-        self.stack_received_cb(text)
-
-    @signal(dbus_interface=IFACE, signature='s')
-    def SendText(self, text):
-        self.stack = text
