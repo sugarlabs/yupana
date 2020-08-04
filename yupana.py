@@ -166,7 +166,7 @@ class Yupana():
         self._set_label(str(self._sum))
 
     def _initiating(self):
-        return self._activity.initiating
+        return self._activity._collab.props.leader
 
     def new_yupana(self, mode=None):
         ''' Create a new yupana. '''
@@ -224,7 +224,7 @@ class Yupana():
             _logger.debug('sending a new yupana')
             self._parent.send_new_yupana()
 
-    def restore_yupana(self, dot_list):
+    def restore_yupana(self, mode, dot_list):
         ''' Restore a yumpana from the Journal or share '''
         for i, dot in enumerate(dot_list):
             self._dots[i].type = dot
@@ -232,6 +232,7 @@ class Yupana():
                     self._colors[self._dots[i].type]))
             if self._dots[i].type == 1:
                 self._sum += self._calc_bead_value(i)
+        self._mode = mode
         self._set_label(str(self._sum))
 
     def save_yupana(self):
