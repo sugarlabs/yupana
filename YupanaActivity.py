@@ -242,7 +242,6 @@ class YupanaActivity(activity.Activity):
         self.initiating = None  # sharing (True) or joining (False)
 
         self.connect('shared', self._shared_cb)
-        self.connect('joined', self._joined_cb)
         self._collab = CollabWrapper(self)
         self._collab.connect('message', self._message_cb)
         self._collab.connect('joined', self._joined_cb)
