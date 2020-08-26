@@ -40,7 +40,7 @@ class YupanaActivity(activity.Activity):
 
     def __init__(self, handle):
         """ Initialize the toolbars and the yupana """
-        super().__init__(handle)
+        activity.Activity.__init__(self, handle)
 
         self.nick = profile.get_nick_name()
         self._reload_custom = False
