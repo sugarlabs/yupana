@@ -210,6 +210,7 @@ class YupanaActivity(activity.Activity):
             self.metadata['dotlist'] += str(dot)
             if dot_list.index(dot) < len(dot_list) - 1:
                 self.metadata['dotlist'] += ' '
+        self.metadata['label'] = self._yupana.get_label()
 
     def _restore(self):
         """ Restore the yupana state from metadata """
@@ -234,6 +235,7 @@ class YupanaActivity(activity.Activity):
             for dot in dots:
                 dot_list.append(int(dot))
             self._yupana.restore_yupana(self.metadata['mode'],dot_list)
+        self._yupana.set_label(self.metadata['label'])
 
     # Collaboration-related methods
 
@@ -242,6 +244,7 @@ class YupanaActivity(activity.Activity):
         self.initiating = None  # sharing (True) or joining (False)
 
         self.connect('shared', self._shared_cb)
+        self.connect('joined', self._joined_cb)
         self._collab = CollabWrapper(self)
         self._collab.connect('message', self._message_cb)
         self._collab.connect('joined', self._joined_cb)
@@ -277,6 +280,8 @@ class YupanaActivity(activity.Activity):
         elif command == 'played':
             '''Get a dot click'''
             self._receive_dot_click(payload)
+        elif command == 'label':
+            self._yupana.set_label(payload)
 
     def send_new_yupana(self):
         ''' Send a new orientation, grid to all players '''
@@ -301,3 +306,10 @@ class YupanaActivity(activity.Activity):
         ''' When a dot is clicked, everyone should change its color. '''
         (dot, color) = json_load(payload)
         self._yupana.remote_button_press(dot, color)
+
+    def send_label(self, label):
+        self.last_label = label
+        self._collab.post(dict(
+            command='label',
+            payload=label
+        ))

@@ -21,11 +21,8 @@ from gettext import gettext as _
 import logging
 _logger = logging.getLogger('yupana-activity')
 
-try:
-    from sugar3.graphics import style
-    GRID_CELL_SIZE = style.GRID_CELL_SIZE
-except ImportError:
-    GRID_CELL_SIZE = 0
+from sugar3.graphics import style
+GRID_CELL_SIZE = style.GRID_CELL_SIZE
 
 from sprites import Sprites, Sprite
 
@@ -163,7 +160,10 @@ class Yupana():
                 dot.type = 0
                 dot.set_shape(self._new_dot(self._colors[0]))
             dot.set_label('')
-        self._set_label(str(self._sum))
+        self.set_label(str(self._sum))
+        if self.we_are_sharing:
+            _logger.debug('sending new label to the share')
+            self._parent.send_label(str(self._sum))
 
     def _initiating(self):
         return self._activity._collab.props.leader
@@ -233,7 +233,10 @@ class Yupana():
             if self._dots[i].type == 1:
                 self._sum += self._calc_bead_value(i)
         self._mode = mode
-        self._set_label(str(self._sum))
+        self.set_label(str(self._sum))
+        if self.we_are_sharing:
+            _logger.debug('sending new label to the share')
+            self._parent.send_label(str(self._sum))
 
     def save_yupana(self):
         ''' Return dot list and orientation for saving to Journal or
@@ -243,10 +246,12 @@ class Yupana():
             dot_list.append(dot.type)
         return [self._mode, dot_list]
 
-    def _set_label(self, string):
+    def set_label(self, string):
         ''' Set the label in the toolbar or the window frame. '''
         self._number_box.set_label(string)
-        # self._activity.status.set_label(string)
+
+    def get_label(self):
+        return self._number_box.get_label()
 
     def _button_press_cb(self, win, event):
         win.grab_focus()
@@ -270,7 +275,10 @@ class Yupana():
                 self._sum += self._calc_bead_value(self._dots.index(spr))
             else:
                 self._sum -= self._calc_bead_value(self._dots.index(spr))
-            self._set_label(str(self._sum))
+            self.set_label(str(self._sum))
+            if self.we_are_sharing:
+                _logger.debug('sending new label to the share')
+                self._parent.send_label(str(self._sum))
         return True
 
     def _calc_bead_value(self, i):
