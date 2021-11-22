@@ -7,15 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-25 00:31-0400\n"
-"PO-Revision-Date: 2013-06-07 20:54+0200\n"
-"Last-Translator: Aputsiaq Niels <aj@isit.gl>\n"
+"PO-Revision-Date: 2018-10-21 17:06+0000\n"
+"Last-Translator: scootergrisen <scootergrisen@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.0.5\n"
+"X-Generator: Pootle 2.5.1.1\n"
+"X-POOTLE-MTIME: 1540141583.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Yupana"
@@ -44,7 +45,7 @@ msgstr "decimal-tilstand"
 
 #: YupanaActivity.py:130 YupanaActivity.py:189
 msgid "base-twenty mode"
-msgstr " grundtal 20-tilstand"
+msgstr "grundtal 20-tilstand"
 
 #: YupanaActivity.py:134 YupanaActivity.py:193
 msgid "prime-factor mode"

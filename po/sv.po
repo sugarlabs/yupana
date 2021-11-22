@@ -2,21 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-25 00:31-0400\n"
-"PO-Revision-Date: 2016-06-03 15:39+0000\n"
-"Last-Translator: htindon <helene.tindon@gmail.com>\n"
+"PO-Revision-Date: 2017-03-30 21:15+0000\n"
+"Last-Translator: Anders <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fr\n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1464968379.000000\n"
+"X-POOTLE-MTIME: 1490908540.000000\n"
 
 #. TRANS: "name" option from activity.info file
 msgid "Yupana"
@@ -25,60 +26,60 @@ msgstr "Yupana"
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid "Incan calculator"
-msgstr "calculateur inca"
+msgstr "Inca-miniräknare"
 
 #: YupanaActivity.py:102
 msgid "Mode"
-msgstr "Mode"
+msgstr "Läge"
 
 #: YupanaActivity.py:109
 msgid "Custom"
-msgstr "Personnalisé"
+msgstr "Anpassat"
 
 #: YupanaActivity.py:121
 msgid "Clear the yupana."
-msgstr "Efface le yupana"
+msgstr "Rensa yupana."
 
 #: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
 msgid "decimal mode"
-msgstr "mode décimal"
+msgstr "decimalläge"
 
 #: YupanaActivity.py:130 YupanaActivity.py:189
 msgid "base-twenty mode"
-msgstr "mode en base vingt"
+msgstr "bas-20-läge"
 
 #: YupanaActivity.py:134 YupanaActivity.py:193
 msgid "prime-factor mode"
-msgstr "mode facteur primaire"
+msgstr "primfaktorläge"
 
 #: YupanaActivity.py:138 YupanaActivity.py:197
 msgid "Fibonacci mode"
-msgstr "mode Fibonacci "
+msgstr "Fibonacci-läge"
 
 #: YupanaActivity.py:142 YupanaActivity.py:210
 msgid "custom mode"
-msgstr "mode personnalisé"
+msgstr "anpassat läge"
 
 #: YupanaActivity.py:159
 msgid "one row"
-msgstr "une ligne"
+msgstr "ett-rad"
 
 #: YupanaActivity.py:162
 msgid "two row"
-msgstr "deux lignes"
+msgstr "två-rad"
 
 #: YupanaActivity.py:165
 msgid "three row"
-msgstr "trois lignes"
+msgstr "tre-rad"
 
 #: YupanaActivity.py:168
 msgid "five row"
-msgstr "cinq lignes"
+msgstr "fem-rad"
 
 #: YupanaActivity.py:173
 msgid "base"
-msgstr "base"
+msgstr "bas"
 
 #: YupanaActivity.py:177
 msgid "Reload custom values."
-msgstr "Recharge les valeurs personnalisées."
+msgstr "Läs om anpassade värden."

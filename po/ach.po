@@ -7,17 +7,18 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-05-25 00:31-0400\n"
-"PO-Revision-Date: 2016-06-03 15:39+0000\n"
-"Last-Translator: htindon <helene.tindon@gmail.com>\n"
+"PO-Revision-Date: 2017-05-25 18:50+0000\n"
+"Last-Translator: chanchumgpa <chanchumgpa@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fr\n"
+"Language: ach\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Pootle 2.5.1.1\n"
-"X-POOTLE-MTIME: 1464968379.000000\n"
+"X-POOTLE-MTIME: 1495738235.000000\n"
 
+# Abakas me cura
 #. TRANS: "name" option from activity.info file
 msgid "Yupana"
 msgstr "Yupana"
@@ -25,60 +26,60 @@ msgstr "Yupana"
 #. TRANS: "summary" option from activity.info file
 #. TRANS: "description" option from activity.info file
 msgid "Incan calculator"
-msgstr "calculateur inca"
+msgstr "Incan cuma tiyo cura"
 
 #: YupanaActivity.py:102
 msgid "Mode"
-msgstr "Mode"
+msgstr "Kit matye"
 
 #: YupanaActivity.py:109
 msgid "Custom"
-msgstr "Personnalisé"
+msgstr "Pa dano"
 
 #: YupanaActivity.py:121
 msgid "Clear the yupana."
-msgstr "Efface le yupana"
+msgstr "Jwa yupana"
 
 #: YupanaActivity.py:126 YupanaActivity.py:147 YupanaActivity.py:185
 msgid "decimal mode"
-msgstr "mode décimal"
+msgstr "Kit me decimal"
 
 #: YupanaActivity.py:130 YupanaActivity.py:189
 msgid "base-twenty mode"
-msgstr "mode en base vingt"
+msgstr "kema-kit matye gin pyeroaryo"
 
 #: YupanaActivity.py:134 YupanaActivity.py:193
 msgid "prime-factor mode"
-msgstr "mode facteur primaire"
+msgstr "Prayim-kit cura me rwom malamal"
 
 #: YupanaActivity.py:138 YupanaActivity.py:197
 msgid "Fibonacci mode"
-msgstr "mode Fibonacci "
+msgstr "Kit mawoto kwede"
 
 #: YupanaActivity.py:142 YupanaActivity.py:210
 msgid "custom mode"
-msgstr "mode personnalisé"
+msgstr "kit matye pi dano"
 
 #: YupanaActivity.py:159
 msgid "one row"
-msgstr "une ligne"
+msgstr "rek arii acel"
 
 #: YupanaActivity.py:162
 msgid "two row"
-msgstr "deux lignes"
+msgstr "rek arii aryo"
 
 #: YupanaActivity.py:165
 msgid "three row"
-msgstr "trois lignes"
+msgstr "rek arii adek"
 
 #: YupanaActivity.py:168
 msgid "five row"
-msgstr "cinq lignes"
+msgstr "rek arii abic"
 
 #: YupanaActivity.py:173
 msgid "base"
-msgstr "base"
+msgstr "kema"
 
 #: YupanaActivity.py:177
 msgid "Reload custom values."
-msgstr "Recharge les valeurs personnalisées."
+msgstr "Nwo pango rwom pa dano mapol."
