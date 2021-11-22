@@ -308,7 +308,6 @@ class YupanaActivity(activity.Activity):
         self._yupana.remote_button_press(dot, color)
 
     def send_label(self, label):
-        self.last_label = label
         self._collab.post(dict(
             command='label',
             payload=label
