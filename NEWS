@@ -1,3 +1,9 @@
+18
+* Port to Python3
+* Port from telepathy to TelepathyGLib
+* Update sprites.py
+* Port to CollabWrapper
+
 17
 
 ENHANCEMENT:
