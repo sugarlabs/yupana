@@ -25,7 +25,7 @@ Yupana is not a part of Sugar desktop, but is often added.  Please refer to:
 Where to get Yupana?
 -------------------
 
-The Yupana activity is available for download from the Sugar [Activity Library](http://activities.sugarlabs.org/en-US/sugar/): [Yupana](http://activities.sugarlabs.org/en-US/sugar/addon/4533).
+The Yupana activity is available for download from the Sugar [Activity Library](https://v4.activities.sugarlabs.org/): [Yupana](https://v4.activities.sugarlabs.org/?q=yupana).
 
 
 Reporting Bugs
