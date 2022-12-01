@@ -1,3 +1,7 @@
+19
+* Create Readme
+* Fix click not toggling
+
 18
 * Port to Python3
 * Port from telepathy to TelepathyGLib
